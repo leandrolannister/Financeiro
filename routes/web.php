@@ -130,5 +130,13 @@ Route::group(['prefix' => 'painel', 'namespace' => 'Painel',
      ->name('painel.meta');
 });
 
+//Ações
+Route::group(['prefix' => 'acoes', 'namespace' => 'Acoes'], 
+  function(){
+
+    Route::get('/', 'AcoesController@index');  
+
+});
+
 
 

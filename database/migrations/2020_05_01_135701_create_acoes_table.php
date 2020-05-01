@@ -14,7 +14,13 @@ class CreateAcoesTable extends Migration
     public function up()
     {
         Schema::create('acoes', function (Blueprint $table) {
-            $table->id();
+            $table->integer('id')->autoIncrement();
+            $table->string('papel', 15);
+            $table->integer('quantidade');
+            $table->double('compra', 12,2)->default(0);
+            $table->double('venda', 12,2)->defualt(0);
+            $table->date('dt_compra');
+            $table->date('dt_venda');
             $table->timestamps();
         });
     }
