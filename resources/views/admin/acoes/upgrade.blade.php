@@ -16,14 +16,14 @@
         <input type="hidden" name="id" value="{{$acao->id}}">
         
         <div class="form-group">
-          <label for="name">Papel</label>
+          <label for="papel">Papel</label>
           <input type="text" name="papel" class="form-control"
                  placeholder="Descrição da Ação"
                  value="{{$acao->papel}}">                 
         </div>        
 
         <div class="form-group">
-          <label for="preco">Preço</label>
+          <label for="compra">Preço</label>
           <input type="number" name="compra" class="form-control"
                   step="0.01" placeholder="Preço de compra"
                   value="{{$acao->compra}}">

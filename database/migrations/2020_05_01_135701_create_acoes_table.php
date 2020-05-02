@@ -20,7 +20,7 @@ class CreateAcoesTable extends Migration
             $table->double('compra', 12,2)->default(0);
             $table->double('venda', 12,2)->default(0);
             $table->date('dt_compra');
-            $table->date('dt_venda')
+            $table->date('dt_venda');
             $table->timestamps();
         });
     }
