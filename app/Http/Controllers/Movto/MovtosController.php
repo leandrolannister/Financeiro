@@ -35,9 +35,7 @@ class MovtosController extends Controller
 
    public function deposito(Request $req):object
    {
-     $result = (new Movtoconta())->store_m($req->all()); 
-     
-     if($result)
+     if((new Movtoconta())->store_m($req->except('_token')))
        return redirect()->route('movto.conta')
        ->with('success', 'Lançamento efetuado com sucesso');
 

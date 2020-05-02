@@ -25,7 +25,6 @@ class PaineisController extends Controller
 
   public function meta()
   {
-    //dd($this->getConsumo('Curso'));
     $parametros = $this->getParametros();
     $valorAnual = $this->getValorAnual();
 
