@@ -24,15 +24,13 @@ class GrupoContasController extends Controller
       $dados = $req->all();
       $dados['user_id'] = auth()->user()->id;
 
-      try{
-      	Grupoconta::create($dados);
-      }catch(\Exception $e){
-         return redirect()->route('grupocontas.index')
-         ->with('error', 'A Conta não foi cadastrada!');
-      }
+      if((new Grupoconta())->store_g($req->except('_token')))
+        return redirect()->route('grupocontas.index')
+        ->with('success', "Conta cadastrada com sucesso.");  
 
       return redirect()->route('grupocontas.index')
-      ->with('success', "Conta cadastrada com sucesso.");
+      ->with('error', 'A Conta não foi cadastrada!');
+           
     }
 
     public function show():object

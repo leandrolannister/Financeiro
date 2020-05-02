@@ -28,6 +28,17 @@ class Grupoconta extends Model
     return $this::query()->orderBy('id')->paginate();
   }
 
+  public function store_g(array $dados):bool
+  {
+    try{
+      $this::create($dados);
+    }catch(\Exception $e){
+      return false;
+    }
+    return true;
+
+  }
+
   public function setNomeAttribute($nome)
   {
     $this->attributes['nome'] = mb_strtoupper($nome);
