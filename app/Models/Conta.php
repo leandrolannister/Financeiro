@@ -27,6 +27,16 @@ class Conta extends Model
     $this->attributes['nome'] = mb_strtolower($nome);
   }
 
+  public function store_c(array $dados): bool
+  {
+    try{
+      $this::create($dados);
+    }catch(\Exception $e){
+      return false;
+    }
+    return true;
+  }
+
   public function listar(): object
   {
     return $this->query()->orderby('id')

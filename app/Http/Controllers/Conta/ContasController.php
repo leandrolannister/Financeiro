@@ -21,15 +21,12 @@ class ContasController extends Controller
 
     public function store(ContaRequest $req):object
     {
-       try{
-          Conta::create($req->all());
-       }catch(\Exception $e){
-         return redirect()->route('conta.index')
-         ->with('error', 'A conta não foi cadastrada!');         
-       }
+      if((new Conta())->store_c($req->all()))
+        return redirect()->route('conta.index')
+        ->with('success', 'A conta foi cadastrada com sucesso.');
 
-       return redirect()->route('conta.index')
-       ->with('success', 'A conta foi cadastrada com sucesso.');
+      return redirect()->route('conta.index')
+        ->with('error', 'A conta não foi cadastrada!');   
     }
 
     public function show():object
