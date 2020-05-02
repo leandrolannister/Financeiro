@@ -8,6 +8,7 @@ class Acoes extends Model
 {
     protected $fillable = ['papel', 'quantidade', 'compra', 'venda',
                            'dt_compra', 'dt_venda'];
+    protected $perPage = 10;                       
 
     public function store_a(array $dados): bool
     {
@@ -26,11 +27,11 @@ class Acoes extends Model
     	return true;
     } 
 
-    public function upgrade(array $dados): bool
+    public function update_a(array $dados): bool
     {
         try{
             $acoes = $this::find($dados['id']);
-            $acoes->venda = $dados['venda'];
+            $acoes->fill($dados);
             $acoes->save();
         }catch(\Exception $e){
             return false;

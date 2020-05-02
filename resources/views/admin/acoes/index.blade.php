@@ -53,6 +53,7 @@
            <p>sem Registro</p>
          @endforelse
       </tbody>
-    </table>    
+    </table>   
+    {{$acoesList->links()}} 
   </div>
 @stop 

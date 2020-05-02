@@ -15,7 +15,8 @@ class AcoesController extends Controller
 {
     public function index()
     {
-       $acoesList = Acoes::all();
+       $acoesList = Acoes::query()->orderBy('dt_compra', 'desc')
+       ->paginate();
        $helper = (new Helper());
 
        return view('admin.acoes.index', 

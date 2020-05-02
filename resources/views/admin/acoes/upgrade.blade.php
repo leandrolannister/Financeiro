@@ -13,7 +13,7 @@
       <form action="{{route('acoes.update')}}" method="post">
         {!! csrf_field() !!}
 
-        <input type="hiddem" name="id" value="{{$acao->id}}">
+        <input type="hidden" name="id" value="{{$acao->id}}">
         
         <div class="form-group">
           <label for="name">Papel</label>
