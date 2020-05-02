@@ -271,6 +271,11 @@ return [
              'icon' => 'fas fa-coins',
              'url'  => 'admin/acoes/',
            ],
+           [
+             'text' => 'Tesouro',
+             'icon' => 'fas fa-coins',
+             'url'  => 'admin/tesouro/',
+           ],
           ], 
         ],   
         [

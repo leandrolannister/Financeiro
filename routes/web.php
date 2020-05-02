@@ -152,6 +152,15 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Acoes',
 
     Route::post('/acoes/destroy', 'AcoesController@destroy')
     ->name('acoes.destroy');
+});
+
+//Tesouro
+Route::group(['prefix' => 'admin', 'namespace' => 'Tesouro',
+              'middleware' => 'auth'],
+  function(){
+
+    Route::get('/tesouro', 'TesourosController@index')
+    ->name('tesouro.index');  
 
 });
 
