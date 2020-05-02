@@ -38,4 +38,26 @@ class Helper
 
     return 0; 
   }
+
+  public function calcularLucroAcoes($compra, $quantidade, $venda)
+  :float
+  {
+     $total_compra = $compra * $quantidade;
+     $total_venda = $venda * $quantidade;
+
+     return $total_venda - $total_compra;  
+  }
+
+  public function calcularPorcentagemAcoes($compra, $quantidade, $venda):float
+  {
+    $total_compra = $compra * $quantidade;
+    $total_venda = $venda * $quantidade;
+
+    if($total_venda > $total_compra)
+      return number_format(
+        ($total_compra / $total_venda) * 100,2,'.',',');
+
+    return number_format(
+        ($total_venda / $total_compra) * 100,2,'.',',');
+  }
 }

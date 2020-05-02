@@ -131,10 +131,24 @@ Route::group(['prefix' => 'painel', 'namespace' => 'Painel',
 });
 
 //Ações
-Route::group(['prefix' => 'acoes', 'namespace' => 'Acoes'], 
+Route::group(['prefix' => 'admin', 'namespace' => 'Acoes',
+              'middleware' => 'auth'], 
   function(){
 
-    Route::get('/', 'AcoesController@index');  
+    Route::get('/acoes', 'AcoesController@index')
+    ->name('acoes.index');
+    
+    Route::get('/acoes/create', 'AcoesController@create')
+    ->name('acoes.create');
+
+    Route::post('/acoes/store', 'AcoesController@store')
+    ->name('acoes.store');
+
+    Route::post('/acoes/upgrade', 'AcoesController@upgrade')
+    ->name('acoes.upgrade');
+
+    Route::post('/acoes/update', 'AcoesController@update')
+    ->name('acoes.update');
 
 });
 

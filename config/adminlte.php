@@ -261,6 +261,17 @@ return [
              'url'  => 'admin/conta/obrigatorias/show',
            ],
           ], 
+        ],
+        [
+         'text'    => 'Investimento',
+         'icon'    => 'far fa-money-bill-alt',
+         'submenu' => [
+           [
+             'text' => 'Ações',
+             'icon' => 'fas fa-coins',
+             'url'  => 'admin/acoes/',
+           ],
+          ], 
         ],   
         [
           'text'    => 'Cadastro',
