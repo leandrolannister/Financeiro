@@ -50,14 +50,16 @@ class Helper
 
   public function calcularPorcentagemAcoes($compra, $quantidade, $venda):float
   {
-    $total_compra = $compra * $quantidade;
+    $despesaCorretagem = 5.10;
+
+    $total_compra = $compra * $quantidade - $despesaCorretagem;
     $total_venda = $venda * $quantidade;
 
     if($total_venda > $total_compra)
       return number_format(
-        ($total_compra / $total_venda) * 100,2,'.',',');
+        100 - ($total_compra / $total_venda) * 100,2,'.',',');
 
     return number_format(
-        ($total_venda / $total_compra) * 100,2,'.',',');
+      100 - ($total_venda / $total_compra) * 100,2,'.',',');
   }
 }

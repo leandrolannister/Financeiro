@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Acoes;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AcoesReq;
-use App\Http\Requests\AcoesUpgrade;
+use App\Http\Requests\Acoes as AcoesValidaId;
 use App\Http\Requests\AcoesUpdate;  
 use Illuminate\Http\Request;
 
@@ -32,13 +32,13 @@ class AcoesController extends Controller
     {
       if((new Acoes())->store_a($req->except('_token')))
         return redirect()->route('acoes.index')
-        ->with('success', 'O Papel foi cadastrada com sucesso');
+        ->with('success', 'A Ação foi cadastrada com sucesso');
 
         return redirect()->route('acoes.create')
         ->with('error', 'A ação não foi cadastrada');  
     }
 
-    public function upgrade(AcoesUpgrade $req)
+    public function upgrade(AcoesValidaId $req)
     {
        $acao = Acoes::find($req->id);
        return view('admin.acoes.upgrade', compact('acao'));
@@ -48,9 +48,19 @@ class AcoesController extends Controller
     {
        if((new Acoes())->update_a($req->except('_token')))
          return redirect()->route('acoes.index')
-         ->with('success', 'O Papel foi atualizado com sucesso');
+         ->with('success', 'A Ação foi atualizado com sucesso');
 
        return redirect()->route('acoes.create')
         ->with('error', 'A ação não foi atualizada');    
+    }
+
+    public function destroy(AcoesValidaId $req)
+    {
+       if(Acoes::destroy($req->id))
+         return redirect()->route('acoes.index')
+         ->with('success', 'A Ação foi deletado com sucesso');
+
+       return redirect()->route('acoes.create')
+        ->with('error', 'A Ação não foi deletada');    
     }
 }

@@ -150,6 +150,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Acoes',
     Route::post('/acoes/update', 'AcoesController@update')
     ->name('acoes.update');
 
+    Route::post('/acoes/destroy', 'AcoesController@destroy')
+    ->name('acoes.destroy');
+
 });
 
 
