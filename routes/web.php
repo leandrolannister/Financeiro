@@ -118,7 +118,7 @@ Route::group(['prefix' => 'movto', 'namespace' => 'Movto',
       ->name('movto.destroy');
 });
 
-//Painel
+/*Painel
 Route::group(['prefix' => 'painel', 'namespace' => 'Painel',
              'middleware' => 'auth'], 
   function(){     
@@ -128,7 +128,7 @@ Route::group(['prefix' => 'painel', 'namespace' => 'Painel',
 
      Route::get('/meta', 'PaineisController@meta')
      ->name('painel.meta');
-});
+});*/
 
 //Ações
 Route::group(['prefix' => 'admin', 'namespace' => 'Acoes',
