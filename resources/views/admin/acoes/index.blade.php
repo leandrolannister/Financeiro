@@ -57,7 +57,7 @@
               </button>       
             </form>
           </td> 
-           <td>
+          <td>
             <form action="{{route('acoes.destroy')}}" method="post">
               {{csrf_field()}}
               <input type="hidden" name="id" value="{{$a->id}}">

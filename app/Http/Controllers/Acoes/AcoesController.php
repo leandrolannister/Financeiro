@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Acoes;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AcoesReq;
-use App\Http\Requests\Acoes as AcoesValidaId;
+use App\Http\Requests\ValidateId;
 use App\Http\Requests\AcoesUpdate;  
 use Illuminate\Http\Request;
 
@@ -38,7 +38,7 @@ class AcoesController extends Controller
         ->with('error', 'A ação não foi cadastrada');  
     }
 
-    public function upgrade(AcoesValidaId $req)
+    public function upgrade(ValidateId $req)
     {
        $acao = Acoes::find($req->id);
        return view('admin.acoes.upgrade', compact('acao'));
@@ -54,7 +54,7 @@ class AcoesController extends Controller
         ->with('error', 'A ação não foi atualizada');    
     }
 
-    public function destroy(AcoesValidaId $req)
+    public function destroy(ValidateId $req)
     {
        if(Acoes::destroy($req->id))
          return redirect()->route('acoes.index')

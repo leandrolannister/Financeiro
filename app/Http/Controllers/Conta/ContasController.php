@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Conta;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ContaRequest;
-use App\Http\Requests\Contas as ContasReq;
+use App\Http\Requests\ValidateId;
 use App\Models\{Grupoconta, Conta};
 use Illuminate\Http\Request;
 use App\Service\Helper;
@@ -51,7 +51,7 @@ class ContasController extends Controller
         'helper','grupocontas', 'contas'));
     }
 
-    public function upgrade(ContasReq $req):object
+    public function upgrade(ValidateId $req):object
     {
       $conta = Conta::find($req->id);
       $grupocontas = Grupoconta::all();
@@ -60,7 +60,7 @@ class ContasController extends Controller
              compact('conta', 'grupocontas'));  
     }
 
-    public function update(ContasReq $req):object
+    public function update(ValidateId $req):object
     {
       $conta = Conta::find($req->id);
             
@@ -77,7 +77,7 @@ class ContasController extends Controller
         ->route('conta.show');        
     } 
 
-    public function turn(ContasReq $req):object
+    public function turn(ValidateId $req):object
     {
      (new Conta())->updateStatus($req->id);   
       
@@ -86,7 +86,7 @@ class ContasController extends Controller
       ->with('success', 'A Conta foi atualizada');
     }
 
-    public function destroy(ContasReq $req):object
+    public function destroy(ValidateId $req):object
     {
       if(Conta::destroy($req->id)):
         return redirect()

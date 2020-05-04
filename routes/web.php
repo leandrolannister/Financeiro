@@ -174,6 +174,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Tesouro',
     Route::post('/tesouro/update', 'TesourosController@update')
     ->name('tesouro.update');
 
+    Route::post('/tesouro/destroy', 'TesourosController@destroy')
+    ->name('tesouro.destroy');
+
 });
 
 

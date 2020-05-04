@@ -48,7 +48,8 @@ class Helper
      return $total_venda - $total_compra;  
   }
 
-  public function calcularPorcentagemAcoes($compra, $quantidade, $venda):float
+  public function calcularPorcentagemAcoes($compra, $quantidade, 
+    $venda):float
   {
     $despesaCorretagem = 5.10;
 
@@ -61,5 +62,10 @@ class Helper
 
     return number_format(
       100 - ($total_venda / $total_compra) * 100,2,'.',',');
+  }
+
+  public function calcularSaldoTesouro($venda, $compra): float
+  {
+     return number_format($venda - $compra);         
   }
 }
