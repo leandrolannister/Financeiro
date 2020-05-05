@@ -248,6 +248,11 @@ return [
              'text' => 'Meta',
              'icon' => 'fas fa-file',
              'url'  => 'painel/meta',
+           ],
+           [
+             'text' => 'Ranking',
+             'icon' => 'fas fa-file',
+             'url'  => 'painel/ranking',
            ],            
          ],
         ],

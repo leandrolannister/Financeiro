@@ -44,4 +44,16 @@ class Painel extends Model
 
     return Helper::recuperaValor($query);
   }
+
+  public function rankingContas()
+  {
+    $query = DB::table('movtocontas')
+    ->join('contas', 'contas.id', 'movtocontas.conta_id')
+    ->select('contas.nome', DB::raw('sum(movtocontas.valor)'))
+    ->groupBy('contas.nome')
+    ->orderBy('movtocontas.valor', 'desc')
+    ->paginate();
+
+    return $query;
+  }
 }

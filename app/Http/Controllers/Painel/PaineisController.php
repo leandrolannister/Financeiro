@@ -74,4 +74,11 @@ class PaineisController extends Controller
     ];
     return $anual;       
   }
+
+  public function ranking()
+  {
+    $contas = (new Painel())->rankingContas();
+
+    dd($contas);
+  }
 }

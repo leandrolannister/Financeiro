@@ -121,7 +121,8 @@ class Conta extends Model
   public function recuperaContas(string $tipo):object
   {
     $contas = DB::table('contas')
-    ->leftjoin('movtocontas', 'movtocontas.conta_id', '=', 'contas.id')
+    ->leftjoin('movtocontas', 'movtocontas.conta_id', 
+                              'contas.id')
     ->select('contas.nome', 'contas.status', 'contas.tipo',
              'movtocontas.valor', 'movtocontas.data')
     ->where('contas.tipo', $tipo)
