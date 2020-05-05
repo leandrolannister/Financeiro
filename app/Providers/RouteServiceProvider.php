@@ -48,6 +48,18 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->painelRoute();
 
+        $this->usuarioRoute();
+
+        $this->grupocontasRoute();
+
+        $this->contaRoute();
+
+        $this->movtoRoute();
+
+        $this->acoesRoute();
+
+        $this->tesouroRoute();
+
         //
     }
 
@@ -67,9 +79,58 @@ class RouteServiceProvider extends ServiceProvider
 
     protected function painelRoute()
     {
-        Route::middleware('web')
-            ->namespace('App\Http\Controllers\Painel')
-            ->group(base_path('routes/Painel.php'));
+      Route::prefix('painel')
+        ->middleware('web')
+        ->namespace('App\Http\Controllers\Painel')
+        ->group(base_path('routes/painel.php'));
+    }
+
+    protected function usuarioRoute()
+    {
+      Route::prefix('admin')
+        ->middleware('web')
+        ->namespace('App\Http\Controllers\Usuario')
+        ->group(base_path('routes/usuario.php'));
+    }
+
+    protected function grupocontasRoute()
+    {
+      Route::prefix('admin')
+        ->middleware('web')
+        ->namespace('App\Http\Controllers\GrupoContas')
+        ->group(base_path('routes/grupocontas.php'));
+    }
+
+    protected function contaRoute()
+    {
+      Route::prefix('admin')
+        ->middleware('web')
+        ->namespace('App\Http\Controllers\Conta')
+        ->group(base_path('routes/conta.php'));
+    }
+
+    protected function movtoRoute()
+    {
+      Route::prefix('movto')
+        ->middleware('web')
+        ->namespace('App\Http\Controllers\Movto')
+        ->group(base_path('routes/movto.php'));
+    }
+
+    protected function acoesRoute()
+    {
+      Route::prefix('admin')
+        ->middleware('web')
+        ->namespace('App\Http\Controllers\Acoes')
+        ->group(base_path('routes/acoes.php'));
+    }
+
+    protected function tesouroRoute()
+    {
+      Route::prefix('admin')
+        ->middleware('web')
+        ->namespace('App\Http\Controllers\Tesouro')
+        ->group(base_path('routes/tesouro.php'));
     }
 
     /**

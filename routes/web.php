@@ -12,7 +12,7 @@ Route::get('/home', function() {
     return view('home');
 })->name('home')->middleware('auth');
 
-//Admin->Usuário
+/*Admin->Usuário
 Route::group(['prefix' => 'admin', 'namespace' => 'Usuario',
 	          'middleware' => 'auth'],
   function(){
@@ -21,9 +21,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Usuario',
 
     Route::post('/usuario/update', 'UsuariosController@update')
     ->name('usuario.update');
-});
+});*/
 
-//Admin->Grupo de Contas
+/*Admin->Grupo de Contas
 Route::group(['prefix' => 'admin', 'namespace' => 'GrupoContas',
               'middleware' => 'auth'],
    function(){
@@ -52,10 +52,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'GrupoContas',
      Route::post('/grupocontas/destroy',
      'GrupoContasController@destroy')
      ->name('grupocontas.destroy');
-
 });
+*/
 
-//Admin->Conta
+/*Admin->Conta
 Route::group(['prefix' => 'admin', 'namespace' => 'Conta',
               'middleware' => 'auth'],
    function(){
@@ -94,9 +94,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Conta',
      'ContasController@contasObrigatorias')
      ->name('contas.obrigatorias');
 
-   });
+   });*/
 
-//Movto->Grupo de Contas
+/*Movto->Grupo de Contas
 Route::group(['prefix' => 'movto', 'namespace' => 'Movto',
               'middleware' => 'auth'],
    function(){
@@ -116,10 +116,10 @@ Route::group(['prefix' => 'movto', 'namespace' => 'Movto',
 
       Route::post('conta/destroy/','MovtosController@destroy')
       ->name('movto.destroy');
-});
+});*/
 
-/*Painel
-Route::group(['prefix' => 'painel', 'namespace' => 'Painel',
+//Painel
+/*Route::group(['prefix' => 'painel', 'namespace' => 'Painel',
              'middleware' => 'auth'], 
   function(){     
 
@@ -130,7 +130,7 @@ Route::group(['prefix' => 'painel', 'namespace' => 'Painel',
      ->name('painel.meta');
 });*/
 
-//Ações
+/*Ações
 Route::group(['prefix' => 'admin', 'namespace' => 'Acoes',
               'middleware' => 'auth'], 
   function(){
@@ -152,9 +152,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Acoes',
 
     Route::post('/acoes/destroy', 'AcoesController@destroy')
     ->name('acoes.destroy');
-});
+});*/
 
-//Tesouro
+/*Tesouro
 Route::group(['prefix' => 'admin', 'namespace' => 'Tesouro',
               'middleware' => 'auth'],
   function(){
@@ -177,7 +177,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Tesouro',
     Route::post('/tesouro/destroy', 'TesourosController@destroy')
     ->name('tesouro.destroy');
 
-});
+});*/
 
 
 
