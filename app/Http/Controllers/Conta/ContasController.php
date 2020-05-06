@@ -111,12 +111,15 @@ class ContasController extends Controller
 
     public function saldosearch(Request $req)
     {
-      $data = explode('-', $req->data);
-      $ano = $data[0];
-      $mes = $data[1];
+      $data = 
+       (new Helper())->recuperaData($req->except('_token'));
 
-      $dados = (new Conta())->movtosMonth($ano, $mes);
-      $saldo = (new Conta())->getSaldo($ano, $mes);
+      $dados = (new Conta())
+      ->movtosMonth($data['ano'], $data['mes']);
+      
+      $saldo = (new Conta())
+      ->getSaldo($data['ano'], $data['mes']);
+      
       $helper = (new Helper());
 
       return view('conta.saldo', 

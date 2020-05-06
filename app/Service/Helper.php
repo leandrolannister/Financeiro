@@ -68,4 +68,17 @@ class Helper
   {
      return number_format($venda - $compra);         
   }
+
+  public function recuperaData(array $dados):array
+  {
+    $d = explode('-', $dados['data']);
+
+    $data = [
+      'ano' =>  $d[0], 
+      'mes' =>  $d[1]
+    ];
+
+    return $data;     
+  }  
+
 }

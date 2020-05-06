@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Painel;
 
 use App\Http\Controllers\Controller;
 use App\Models\{Conta,Movtoconta, Painel};
+use App\Http\Requests\Painel as PainelReq;
 use Illuminate\Http\Request;
+use App\Service\Helper;
 
 class PaineisController extends Controller
 {
@@ -15,7 +17,7 @@ class PaineisController extends Controller
      $this->receita = (new Conta())->receita(Date('Y'), Date('m'));
   }
 
-  public function show()
+  public function show():object
   {
     $movtos = (new Movtoconta())->show();
     $contas = Conta::all();
@@ -23,7 +25,7 @@ class PaineisController extends Controller
     return view('painel.show', compact('movtos', 'contas'));
   }
 
-  public function meta()
+  public function meta():object
   {
     $parametros = $this->getParametros();
     $valorAnual = $this->getValorAnual();
@@ -32,7 +34,7 @@ class PaineisController extends Controller
       compact('parametros', 'valorAnual'));    
   }
 
-  public function getParametros()
+  public function getParametros():array
   {
      $parametros = [
 
@@ -66,19 +68,35 @@ class PaineisController extends Controller
      return $valor;
   }
 
-  public function getValorAnual()
+  public function getValorAnual():array
   {
     $anual = [
       'receita' => (new Painel())->recuperaReceita(Date("Y")),
       'despesa' => (new Painel())->recuperaDespesa(Date("Y")) 
     ];
+
     return $anual;       
   }
 
-  public function ranking()
+  public function ranking():object
   {
-    $contas = (new Painel())->rankingContas();
+    $contasList = 
+      (new Painel())->rankingContas(date('Y'), date('m'));
 
-    dd($contas);
+    return view('painel.ranking', compact('contasList'));    
+  }
+
+  public function search(PainelReq $req)
+  {
+     $dados = $req->except('_token');
+
+     $data = 
+       (new Helper())->recuperaData($req->except('_token'));
+
+     $contasList = (new Painel())->searchRanking(
+     $data['ano'], $data['mes']);
+
+     return view('painel.ranking', 
+      compact('contasList', 'dados'));
   }
 }

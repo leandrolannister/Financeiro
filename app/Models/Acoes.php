@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Acoes extends Model
 {
-    protected $fillable = ['papel', 'quantidade', 'compra', 'venda',
-                           'dt_compra', 'dt_venda'];
+    protected $fillable = ['papel', 'quantidade', 'compra', 
+                           'venda', 'dt_compra', 'dt_venda'];
     protected $perPage = 10;                       
 
     public function store_a(array $dados): bool
