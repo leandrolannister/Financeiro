@@ -35,12 +35,13 @@ class MovtosController extends Controller
 
    public function deposito(Request $req):object
    {
-     if((new Movtoconta())->store_m($req->except('_token')))
-       return redirect()->route('movto.conta')
-       ->with('success', 'Lançamento efetuado com sucesso');
+     return (new Movtoconta())->store_m($req->except('_token'))
 
-     return redirect()->route('movto.conta')
-     ->with('error', 'O lançamento não foi efetuado!');     
+     ? (new Helper())->mensagem('movto.conta', 'success', 
+                               'Lançamento com sucesso efetuado.')  
+
+     : (new Helper())->mensagem('movto.conta', 'error', 
+                              'Lançamento não foi efetuado!');
    }   
 
    public function searchForLancamento(Request $req):object
@@ -53,19 +54,17 @@ class MovtosController extends Controller
      $dados = $req->except('_token');
 
      return view('painel.show', compact('movtos', 'contas',
-      'dados'));
+                                        'dados'));
    }
 
    public function destroy(ValidateId $req):object
    {
-      if(Movtoconta::destroy($req->id)):
-        return redirect()
-        ->route('movto.show')
-        ->with('success', 'O lançamento foi excluído');
-      endif;
+      return Movtoconta::destroy($req->id)
 
-      return redirect()
-      ->route('movto.show')
-      ->with('error', 'O lançamento não foi excluído');
+      ? (new Helper())->mensagem('movto.show', 'success', 
+                               'Lançamento excluído.')  
+
+      : (new Helper())->mensagem('movto.show', 'error', 
+                              'Lançamento não foi excluído!');
    }
 }

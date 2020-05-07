@@ -28,12 +28,13 @@ class TesourosController extends Controller
 
     public function store(TesouroRequest $req):object
     { 
-      if((new Tesouro())->store_t($req->except(['_token'])))
-         return redirect()->route('tesouro.index')
-         ->with('success', 'O papel cadastrado com sucesso.');
+      return (new Tesouro())->store_t($req->except(['_token']))
 
-      return redirect()->route('tesouro.index')
-      ->with('error', 'O papel não foi cadastrado!');   	
+      ? (new Helper())->mensagem('tesouro.index', 'success', 
+                               'Papel cadastrado.')  
+
+      : (new Helper())->mensagem('tesouro.index', 'error', 
+                              'Papel não foi cadastrado!');
     }
 
     public function upgrade(ValidateId $req):object
@@ -46,21 +47,23 @@ class TesourosController extends Controller
 
     public function update(TesouroReqAll $req):object
     {
-      if((new Tesouro())->update_t($req->except('_token')))
-        return redirect()->route('tesouro.index')
-        ->with('success', 'O papel foi atualizado com sucesso.');
+      return (new Tesouro())->update_t($req->except('_token'))
 
-      return redirect()->route('tesouro.index')
-      ->with('error', 'O papel não foi atualizado!');	   	
+      ? (new Helper())->mensagem('tesouro.index', 'success', 
+                               'Papel atualizado.')  
+
+      : (new Helper())->mensagem('tesouro.index', 'error', 
+                              'Papel não foi atualizado!');
     }
 
     public function destroy(ValidateId $req):object
     {
-       if(Tesouro::destroy($req->id))
-         return redirect()->route('tesouro.index')
-         ->with('success', 'O papel foi deletado com sucesso.');
+      return Tesouro::destroy($req->id)
 
-       return redirect()->route('tesouro.index')
-         ->with('error', 'O papel não foi deletado!');      
+      ? (new Helper())->mensagem('tesouro.index', 'success', 
+                               'Papel excluído.')  
+
+      : (new Helper())->mensagem('tesouro.index', 'error', 
+                              'Papel não foi excluído!');
     }
 }

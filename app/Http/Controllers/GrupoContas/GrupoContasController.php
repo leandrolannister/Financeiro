@@ -24,13 +24,13 @@ class GrupoContasController extends Controller
       $dados = $req->all();
       $dados['user_id'] = auth()->user()->id;
 
-      if((new Grupoconta())->store_g($req->except('_token')))
-        return redirect()->route('grupocontas.index')
-        ->with('success', "Conta cadastrada com sucesso.");  
+      return (new Grupoconta())->store_g($req->except('_token'))
 
-      return redirect()->route('grupocontas.index')
-      ->with('error', 'A Conta não foi cadastrada!');
-           
+      ? (new Helper())->mensagem('grupocontas.index', 'success', 
+                                 'Grupo cadastrado.')  
+
+      : (new Helper())->mensagem('grupocontas.index', 'error', 
+                                 'Grupo não foi cadastrado!');
     }
 
     public function show():object
@@ -54,8 +54,8 @@ class GrupoContasController extends Controller
       $helper = (new Helper());
 
       return view('admin.grupocontas.show',
-        compact('grupocontasList', 'grupoconta', 
-                'grupos', 'helper'));
+        compact('grupocontasList', 'grupoconta','grupos', 
+                'helper'));
     }
 
     public function upgrade(Request $req):object
@@ -68,40 +68,34 @@ class GrupoContasController extends Controller
 
     public function update(Request $req):object
     {
-      if((new Grupoconta())->update_g($req)):
-        return redirect()
-        ->route('grupocontas.show')
-        ->with('success', 'Grupo de Conta Atualizado.');
-      endif;
+      return (new Grupoconta())->update_g($req)
 
-      return redirect()
-        ->route('grupocontas.show')
-        ->with('error', 'Grupo de Conta Não foi Atualizado!');
+      ? (new Helper())->mensagem('grupocontas.show', 'success', 
+                                 'Grupo atualizado.')  
+
+      : (new Helper())->mensagem('grupocontas.show', 'error', 
+                                 'Grupo não foi atualizado!');
     }
 
     public function turn(Request $req):object
     {
-      if((new Grupoconta())->updateStatus($req->id)):
-        return redirect()
-        ->route('grupocontas.show')
-        ->with('success', 'Grupo de Conta Atualizado.');
-      endif;
+      return (new Grupoconta())->updateStatus($req->id)
 
-      return redirect()
-        ->route('grupocontas.show')
-        ->with('error', 'Grupo não foi Atualizado!');
+      ? (new Helper())->mensagem('grupocontas.show', 'success', 
+                                 'Grupo atualizado.')  
+
+      : (new Helper())->mensagem('grupocontas.show', 'error', 
+                                 'Grupo não foi atualizado!');
     }
 
     public function destroy(Request $req):object
     {
-      if(Grupoconta::destroy($req->id)):
-        return redirect()
-        ->route('grupocontas.show')
-        ->with('success', 'Grupo de Conta foi excluído.');  
-      endif; 
+      return Grupoconta::destroy($req->id)
 
-      return redirect()
-      ->route('grupocontas.show')
-      ->with('error', 'Grupo de Conta não foi excluído!');
+      ? (new Helper())->mensagem('grupocontas.show', 'success', 
+                                 'Grupo excluído.')  
+
+      : (new Helper())->mensagem('grupocontas.show', 'error', 
+                                 'Grupo não foi excluído!');
     }    
 }

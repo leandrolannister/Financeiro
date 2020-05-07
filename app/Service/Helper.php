@@ -77,6 +77,13 @@ class Helper
     }, $dados);
 
     return $result['data'];       
-  }  
+  }
+
+  public function mensagem(string $route, string $tipo, 
+                             string $msg):object {
+
+      return redirect()->route($route)
+      ->with($tipo, $msg);  
+    }   
 
 }

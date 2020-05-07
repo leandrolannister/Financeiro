@@ -21,12 +21,13 @@ class ContasController extends Controller
 
     public function store(ContaRequest $req):object
     {
-      if((new Conta())->store_c($req->except('_token')))
-        return redirect()->route('conta.index')
-        ->with('success', 'A conta foi cadastrada com sucesso.');
+      return (new Conta())->store_c($req->except('_token'))
 
-      return redirect()->route('conta.index')
-        ->with('error', 'A conta não foi cadastrada!');   
+      ? (new Helper())->mensagem('conta.show', 'success', 
+                                 'Conta atualizada.')  
+
+      : (new Helper())->mensagem('conta.show', 'error', 
+                                 'A Conta não foi atualizada!');
     }
 
     public function show():object
@@ -64,33 +65,33 @@ class ContasController extends Controller
     {
       return  (new Conta())->update_c($req)
 
-      ? $this->mensagem('conta.show', 'success', 
-                        'Conta atualizada.')  
+      ? (new Helper())->mensagem('conta.show', 'success', 
+                                 'Conta atualizada.')  
 
-      : $this->mensagem('conta.show', 'error', 
-                        'A Conta não foi atualizada!');      
+      : (new Helper())->mensagem('conta.show', 'error', 
+                                 'A Conta não foi atualizada!');
     } 
 
     public function turn(ValidateId $req):object
     {
       return (new Conta())->updateStatus($req->id)
 
-      ? $this->mensagem('conta.show', 'success', 
-                        'Conta atualizada.')  
+      ? (new Helper())->mensagem('conta.show', 'success', 
+                                 'Conta atualizada.')  
 
-      : $this->mensagem('conta.show', 'error', 
-                        'A Conta não foi atualizada!'); 
+      : (new Helper())->mensagem('conta.show', 'error', 
+                                 'A Conta não foi atualizada!'); 
     }
 
     public function destroy(ValidateId $req):object
     {
       return Conta::destroy($req->id)
 
-      ? $this->mensagem('conta.show', 'success', 
-                        'Conta excluída.')  
+      ? (new Helper())->mensagem('conta.show', 'success', 
+                                 'Conta excluída.')  
 
-      : $this->mensagem('conta.show', 'error', 
-                        'A Conta não foi excluída!');           
+      : (new Helper())->mensagem('conta.show', 'error', 
+                                 'A Conta não foi excluída!');
     }  
 
     public function saldo():object 
@@ -127,12 +128,5 @@ class ContasController extends Controller
        
        return view('admin.conta.contasObrigatorias', 
         compact('contaList', 'helper'));
-    }
-
-    private function mensagem(string $route, string $tipo, 
-                             string $msg):object {
-
-      return redirect()->route($route)
-      ->with($tipo, $msg);  
-    }     
+    }      
 }
