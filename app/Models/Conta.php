@@ -45,24 +45,23 @@ class Conta extends Model
 
   public function search(array $conta): object
   {
-    $dados = $this->query()
-    ->where('id', '>=', 1)->paginate();
-
-    switch ($conta) {
-      case isset($conta['nome']):
-        $dados = $this->query()
+    $query = function($conta){
+      if(isset($conta['nome']))
+        return $this->query()
         ->where('nome', 'like', '%'.$conta['nome'].'%')
         ->paginate($this->perPage);
-      break;
-
-      case isset($conta['grupoconta']):
-        $dados = $this->query()
+       
+      if(isset($conta['grupoconta']))
+        return $this->query()
         ->where('grupoconta_id', $conta['grupoconta'])
         ->paginate($this->perPage);
-      break;
-     }
+       
+      if(empty($conta['nome']) and empty($conta['grupoconta']))
+        return $this->query()
+        ->where('id', '>=', 1)->paginate();
+     };
 
-     return $dados;
+     return $query($conta);
   }
 
   public function updateStatus($conta_id): void

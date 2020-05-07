@@ -43,7 +43,7 @@ class ContasController extends Controller
     {
       $contas = $req->except('_token');
 
-      $contaList = (new Conta())->search($req->all());
+      $contaList = (new Conta())->search($contas);
       $helper = new Helper();
       $grupocontas = Grupoconta::all();
 
