@@ -4,7 +4,7 @@ namespace App\Http\Controllers\GrupoContas;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\GrupoContasRequest;
-use App\Models\Grupoconta;
+use App\Models\{Grupoconta, Movtoconta, Conta};
 use Illuminate\Http\Request;
 use App\Service\Helper;
 
@@ -90,12 +90,27 @@ class GrupoContasController extends Controller
 
     public function destroy(Request $req):object
     {
-      return Grupoconta::destroy($req->id)
+      if((new Movtoconta())->procuraMovtoGrupo($req->id))
+        
+        return (new Helper())->mensagem('grupocontas.show', 
+        'error', 'Grupo possui contas com movimento não pode ser excluído!'); 
+      
+      if((new Conta())->procuraGrupo($req->id))
+        return (new Helper())->mensagem('grupocontas.show', 
+        'error', 'Grupo possui contas vinculadas não pode ser excluído!');
 
-      ? (new Helper())->mensagem('grupocontas.show', 'success', 
-                                 'Grupo excluído.')  
+        return $this->delete($req);
+     }
+     
+     private function delete($grupo):object
+     {
+       return Grupoconta::destroy($req->id)
 
-      : (new Helper())->mensagem('grupocontas.show', 'error', 
-                                 'Grupo não foi excluído!');
-    }    
+       ? (new Helper())->mensagem('grupocontas.show', 'success', 
+                                  'Grupo excluído.')  
+
+       : (new Helper())->mensagem('grupocontas.show', 'error', 
+                                  'Grupo não foi excluído!');
+     } 
+       
 }

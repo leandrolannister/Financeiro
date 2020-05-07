@@ -83,7 +83,6 @@ class Grupoconta extends Model
       return false;
     }
 
-    return true;  
-    
+    return true;      
   }
 }

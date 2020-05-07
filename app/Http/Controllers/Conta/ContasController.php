@@ -90,6 +90,11 @@ class ContasController extends Controller
         return (new Helper())->mensagem('conta.show', 'error', 
         'Conta possui movimentos não pode ser excluída.');
 
+      return $this->delete($req);
+    }
+    
+    private function delete($conta):object
+    {
       return Conta::destroy($req->id)
 
       ? (new Helper())->mensagem('conta.show', 'success', 

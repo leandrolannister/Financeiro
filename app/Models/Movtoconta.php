@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use App\User;
+use DB;
 
 class Movtoconta extends Model
 {
@@ -173,5 +174,17 @@ class Movtoconta extends Model
     $query = $this->where('conta_id', $conta_id)->get()->first();
 
     return isset($query) ? true : false;
-  }  
+  } 
+
+  public function procuraMovtoGrupo(int $grupo_id):bool
+  {
+    $query = DB::table('grupoContas as g')
+    ->join('contas as c', 'c.grupoconta_id', 'g.id')
+    ->join('movtocontas as m', 'm.conta_id', 'c.id')
+    ->select('g.id')
+    ->where('g.id', $grupo_id)
+    ->get()->first();
+
+    return isset($query) ? true : false;
+  } 
 }

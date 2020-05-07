@@ -148,4 +148,12 @@ class Conta extends Model
 
     return $contas;
   }
+
+  public function procuraGrupo(int $grupoconta_id):bool
+  {
+    $query = $this::where('grupoconta_id', $grupoconta_id)
+    ->get()->first();
+
+    return isset($query) ? true : false;  
+  }
 }
