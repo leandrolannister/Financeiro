@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Usuario;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UsuarioRequest;
 use App\User;
+use App\Service\Helper;
 
 class UsuariosController extends Controller
 {
@@ -17,14 +18,12 @@ class UsuariosController extends Controller
 
     public function update(UsuarioRequest $req):object
     {       
-      try{
-       (new User())->update_u($req->all());
-      }catch(\Exception $e){
-        return redirect()->route('usuario.index')
-        ->with('error', 'Usuário não foi atualizado');
-      } 
-      
-      return redirect()->route('usuario.index')
-      ->with('success', 'Usuário atualizado com sucesso');      
+      return (new User())->update_u($req->all())
+
+      ? (new Helper())->mensagem('usuario.index', 'success', 
+                               'Usuário cadastrado.')  
+
+      : (new Helper())->mensagem('usuario.index', 'error', 
+                              'Usuário não foi cadastrado');
     }
 }

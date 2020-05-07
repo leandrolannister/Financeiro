@@ -49,18 +49,26 @@ class User extends Authenticatable
       return $this->hasMany(MovtoConta::class);
     }
 
-    public function update_u(array $dados): void
+    public function update_u(array $dados): bool
     {
-      $user = self::find(auth()->user()->id);
+      try{
+        
+        $user = self::find(auth()->user()->id);
 
-      if(is_null($dados['password'])):
-        unset($dados['password']);
-      else:  
-        $user->password = Hash::make($dados['password']);
-      endif;
+        if(is_null($dados['password'])):
+          unset($dados['password']);
+        else:  
+          $user->password = Hash::make($dados['password']);
+        endif;  
        
-      $user->nome  = $dados['name'];
-      $user->email = $dados['email'];
-      $user->save();
+        $user->nome  = $dados['name'];
+        $user->email = $dados['email'];
+        $user->save(); 
+
+      }catch(\Exception $e){
+        return false;
+      }
+
+      return true;      
     }
 }
