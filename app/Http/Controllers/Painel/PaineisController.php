@@ -14,7 +14,8 @@ class PaineisController extends Controller
 
   public function __construct()
   {
-     $this->receita = (new Conta())->receita(Date('Y'), Date('m'));
+     $this->receita = (new Conta())
+     ->receita(Date('Y'), Date('m'));
   }
 
   public function show():object
@@ -86,7 +87,7 @@ class PaineisController extends Controller
     return view('painel.ranking', compact('contasList'));    
   }
 
-  public function search(PainelReq $req)
+  public function search(PainelReq $req):object
   {
     $dadosReq = $req->except('_token');
     $data = (new Helper())->recuperaData($dadosReq);

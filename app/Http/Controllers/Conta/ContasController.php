@@ -21,7 +21,7 @@ class ContasController extends Controller
 
     public function store(ContaRequest $req):object
     {
-      if((new Conta())->store_c($req->all()))
+      if((new Conta())->store_c($req->except('_token')))
         return redirect()->route('conta.index')
         ->with('success', 'A conta foi cadastrada com sucesso.');
 
@@ -62,28 +62,28 @@ class ContasController extends Controller
 
     public function update(ValidateId $req):object
     {
-      $conta = Conta::find($req->id);
-            
-      try{
-        $conta->fill($req->all());
-        $conta->save();
-      }catch(\Exception $e){
+      if((new Conta())->update_c($req)):
         return redirect()
         ->route('conta.show')
-        ->with('error', 'A conta não foi Atualizada!');
-      }
+        ->with('success', 'A Conta foi atualizada.');  
+      endif;   
 
       return redirect()
-        ->route('conta.show');        
+       ->route('conta.show')
+       ->with('error', 'A Conta não foi atualizada!');
     } 
 
     public function turn(ValidateId $req):object
     {
-     (new Conta())->updateStatus($req->id);   
-      
-      return redirect()
-      ->route('conta.show')
-      ->with('success', 'A Conta foi atualizada');
+     if((new Conta())->updateStatus($req->id)):
+       return redirect()
+       ->route('conta.show')
+       ->with('success', 'A Conta foi atualizada.');
+     endif;
+
+     return redirect()
+       ->route('conta.show')
+       ->with('error', 'A Conta não foi atualizada!');
     }
 
     public function destroy(ValidateId $req):object
@@ -109,7 +109,7 @@ class ContasController extends Controller
              compact('dados', 'saldo', 'helper'));            
     } 
 
-    public function saldosearch(Request $req)
+    public function saldosearch(Request $req):object
     {
       $data = 
        (new Helper())->recuperaData($req->except('_token'));
@@ -126,7 +126,7 @@ class ContasController extends Controller
              compact('dados', 'saldo', 'helper'));  
     }
 
-    public function contasObrigatorias()
+    public function contasObrigatorias():object
     {
        $contaList = (new Conta())->recuperaContas('Obrigatorio');
        $helper = (new Helper());

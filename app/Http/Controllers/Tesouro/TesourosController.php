@@ -12,7 +12,7 @@ use App\Service\Helper;
 
 class TesourosController extends Controller
 {
-    public function index()
+    public function index():object
     {
        $tesourosList = (new Tesouro())->list();
        $helper = (new Helper());
@@ -46,12 +46,12 @@ class TesourosController extends Controller
 
     public function update(TesouroReqAll $req):object
     {
-       if((new Tesouro())->update_t($req->all()))
-         return redirect()->route('tesouro.index')
-         ->with('success', 'O papel foi atualizado com sucesso.');
+      if((new Tesouro())->update_t($req->except('_token')))
+        return redirect()->route('tesouro.index')
+        ->with('success', 'O papel foi atualizado com sucesso.');
 
-       return redirect()->route('tesouro.index')
-         ->with('error', 'O papel não foi atualizado!');	   	
+      return redirect()->route('tesouro.index')
+      ->with('error', 'O papel não foi atualizado!');	   	
     }
 
     public function destroy(ValidateId $req):object

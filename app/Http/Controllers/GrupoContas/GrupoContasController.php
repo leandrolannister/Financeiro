@@ -68,29 +68,28 @@ class GrupoContasController extends Controller
 
     public function update(Request $req):object
     {
-      $grupo = Grupoconta::find($req->id);
-
-      try{
-        $grupo->fill($req->all());
-        $grupo->save();
-      }catch(\Exception $e){
+      if((new Grupoconta())->update_g($req)):
         return redirect()
         ->route('grupocontas.show')
-        ->with('error', 'Grupo de Conta Não foi Atualizado!');
-      }
+        ->with('success', 'Grupo de Conta Atualizado.');
+      endif;
 
       return redirect()
         ->route('grupocontas.show')
-        ->with('success', 'Grupo de Conta Atualizado');
+        ->with('error', 'Grupo de Conta Não foi Atualizado!');
     }
 
     public function turn(Request $req):object
     {
-      (new Grupoconta())->updateStatus($req->id);
-
-       return redirect()
+      if((new Grupoconta())->updateStatus($req->id)):
+        return redirect()
         ->route('grupocontas.show')
-        ->with('success', 'Grupo de Conta Atualizado');
+        ->with('success', 'Grupo de Conta Atualizado.');
+      endif;
+
+      return redirect()
+        ->route('grupocontas.show')
+        ->with('error', 'Grupo não foi Atualizado!');
     }
 
     public function destroy(Request $req):object
@@ -98,11 +97,11 @@ class GrupoContasController extends Controller
       if(Grupoconta::destroy($req->id)):
         return redirect()
         ->route('grupocontas.show')
-        ->with('success', 'Grupo de Conta foi excluído');  
+        ->with('success', 'Grupo de Conta foi excluído.');  
       endif; 
 
       return redirect()
       ->route('grupocontas.show')
-      ->with('error', 'Grupo de Conta não foi excluído');
+      ->with('error', 'Grupo de Conta não foi excluído!');
     }    
 }

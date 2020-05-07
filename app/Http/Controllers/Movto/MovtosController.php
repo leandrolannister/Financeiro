@@ -67,6 +67,5 @@ class MovtosController extends Controller
       return redirect()
       ->route('movto.show')
       ->with('error', 'O lançamento não foi excluído');
-
    }
 }

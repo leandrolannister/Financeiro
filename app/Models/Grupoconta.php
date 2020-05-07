@@ -39,7 +39,22 @@ class Grupoconta extends Model
 
   }
 
-  public function setNomeAttribute($nome)
+  public function update_g(Object $dados):bool
+  {
+    try{
+      $grupo = Grupoconta::find($dados['id']);  
+      $grupo->fill($dados->all());
+      $grupo->save();
+    }catch(\Exception $e){
+      dd($e->getMessage());
+      return false;  
+    }
+
+    return true;
+  }
+  
+
+  public function setNomeAttribute($nome):void
   {
     $this->attributes['nome'] = mb_strtoupper($nome);
   }
@@ -56,13 +71,19 @@ class Grupoconta extends Model
     return $grupos;
   }
 
-  public function updateStatus($grupoconta_id): void
+  public function updateStatus($grupoconta_id):bool
   {
-    $g = $this::find($grupoconta_id);
-    $g->status ? $g->status = false
-               : $g->status = true;
-    $g->save();
+    try{      
+      $grupo =  $this::find($grupoconta_id);
+      $grupo->status ? $grupo->status = false
+                     : $grupo->status = true;
+      $grupo->save();               
 
-    return;
+    }catch(\Exception $e){
+      return false;
+    }
+
+    return true;  
+    
   }
 }

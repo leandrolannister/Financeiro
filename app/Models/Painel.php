@@ -13,13 +13,12 @@ class Painel extends Model
    public function recuperaConsumo(string $meta, int $ano, 
                                    int $mes):float
    {
-      $query = 
-      DB::select("
-         SELECT classificacao, data, valor 
-         FROM vw_calculoMetas
-         WHERE classificacao = '$meta'
-         AND YEAR(data) = $ano
-         AND MONTH(data) = $mes");
+      $query = DB::select("
+        SELECT classificacao, data, valor 
+        FROM vw_calculoMetas 
+        WHERE classificacao = '$meta'
+        AND YEAR(data) = $ano
+        AND MONTH(data) = $mes");
 
       foreach($query as $valor):
       	if(isset($valor->valor))
@@ -47,7 +46,7 @@ class Painel extends Model
       return Helper::recuperaValor($query);
    }
 
-   public function rankingContas()
+   public function rankingContas():object
    {
       $query = DB::table('movtocontas as m')
       ->join('contas as c', 'c.id', 'm.conta_id')
@@ -61,7 +60,7 @@ class Painel extends Model
       return $query;
   }
 
-   public function searchRanking(int $ano, int $mes)
+   public function searchRanking(int $ano, int $mes):object
    {
       $query = DB::table('movtocontas as m')
       ->join('contas as c', 'c.id', 'm.conta_id')

@@ -22,7 +22,7 @@ class Conta extends Model
     return $this->hasMany(Movtoconta::class);
   }
 
-  public function setNomeAttribute($nome)
+  public function setNomeAttribute($nome):void
   {
     $this->attributes['nome'] = mb_strtolower($nome);
   }
@@ -35,6 +35,19 @@ class Conta extends Model
       return false;
     }
     
+    return true;
+  }
+
+  public function update_c(Object $dados): bool
+  {
+    try{
+      $conta = $this::find($dados['id']); 
+      $conta->fill($dados->all());
+      $conta->save();
+    }catch(\Exception $e){
+      return false;
+    } 
+
     return true;
   }
 
@@ -64,14 +77,18 @@ class Conta extends Model
      return $query($dados);    
   }
 
-  public function updateStatus($conta_id): void
+  public function updateStatus($conta_id):bool
   {
     $c = $this::find($conta_id);
-    $c->status ? $c->status = false
-               : $c->status = true;
-    $c->save();
+    try{
+      $c->status ? $c->status = false
+                 : $c->status = true;
+      $c->save();
+    }catch(\Exception $e){
+      return false;
+    }  
 
-    return;
+    return true;
   }
 
   public function movtosMonth(int $ano, int $mes):array
