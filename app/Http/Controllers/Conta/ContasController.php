@@ -58,45 +58,39 @@ class ContasController extends Controller
 
       return view('admin.conta.upgrade', 
              compact('conta', 'grupocontas'));  
-    }
+    }    
 
     public function update(ValidateId $req):object
     {
-      if((new Conta())->update_c($req)):
-        return redirect()
-        ->route('conta.show')
-        ->with('success', 'A Conta foi atualizada.');  
-      endif;   
+      return  (new Conta())->update_c($req)
 
-      return redirect()
-       ->route('conta.show')
-       ->with('error', 'A Conta não foi atualizada!');
+      ? $this->mensagem('conta.show', 'success', 
+                        'Conta atualizada.')  
+
+      : $this->mensagem('conta.show', 'error', 
+                        'A Conta não foi atualizada!');      
     } 
 
     public function turn(ValidateId $req):object
     {
-     if((new Conta())->updateStatus($req->id)):
-       return redirect()
-       ->route('conta.show')
-       ->with('success', 'A Conta foi atualizada.');
-     endif;
+      return (new Conta())->updateStatus($req->id)
 
-     return redirect()
-       ->route('conta.show')
-       ->with('error', 'A Conta não foi atualizada!');
+      ? $this->mensagem('conta.show', 'success', 
+                        'Conta atualizada.')  
+
+      : $this->mensagem('conta.show', 'error', 
+                        'A Conta não foi atualizada!'); 
     }
 
     public function destroy(ValidateId $req):object
     {
-      if(Conta::destroy($req->id)):
-        return redirect()
-        ->route('conta.show')
-        ->with('success', 'A conta foi excluída');     
-      endif; 
+      return Conta::destroy($req->id)
 
-      return redirect()
-      ->route('conta.show')
-      ->with('error', 'A conta não foi excluída');        
+      ? $this->mensagem('conta.show', 'success', 
+                        'Conta excluída.')  
+
+      : $this->mensagem('conta.show', 'error', 
+                        'A Conta não foi excluída!');           
     }  
 
     public function saldo():object 
@@ -133,5 +127,12 @@ class ContasController extends Controller
        
        return view('admin.conta.contasObrigatorias', 
         compact('contaList', 'helper'));
+    }
+
+    private function mensagem(string $route, string $tipo, 
+                             string $msg):object {
+
+      return redirect()->route($route)
+      ->with($tipo, $msg);  
     }     
 }
