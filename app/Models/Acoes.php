@@ -12,31 +12,28 @@ class Acoes extends Model
 
     public function store_a(array $dados): bool
     {
-    	try{
-    		
-            $dados['dt_venda'] = Date("Y-m-d");
-            $dados['venda'] = $dados['compra'];
+      try{
+        $dados['dt_venda'] = Date("Y-m-d");
+        $dados['venda'] = $dados['compra'];
 
-    		$this::create($dados);
-    	}catch(\Exception $e)
-    	{
-    	  dd($e);
-    	  return false;    		
-    	}
+    	$this::create($dados);
+      }catch(\Exception $e){
+        return false;    		
+      }
 
-    	return true;
+      return true;
     } 
 
     public function update_a(array $dados): bool
     {
-        try{
-            $acoes = $this::find($dados['id']);
-            $acoes->fill($dados);
-            $acoes->save();
-        }catch(\Exception $e){
-            return false;
-        }
+      try{
+        $acoes = $this::find($dados['id']);
+        $acoes->fill($dados);
+        $acoes->save();
+      }catch(\Exception $e){
+        return false;
+      }
 
-        return true;
+      return true;
     }                     
 }

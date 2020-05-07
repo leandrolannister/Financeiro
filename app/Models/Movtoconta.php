@@ -38,31 +38,31 @@ class Movtoconta extends Model
      return $grupos;
   }
 
-  public function search(array $contas):object
-  {
-    $dados = Conta::query()
-    ->where('id', '>=', 1)
-    ->where('status', 1)
-    ->paginate();
-
-    switch ($contas) {
-
-      case isset($contas['nome']):
-        $dados = Conta::query()
-        ->where('nome', 'like', '%'.$contas['nome'].'%')
+  public function search(array $dados):object
+  {    
+    $query = function($dados){
+      
+      if(isset($dados['nome']))
+        return Conta::query()
+        ->where('nome', 'like', '%'.$dados['nome'].'%')
         ->where('status', 1)
-        ->paginate($this->perPage);
-      break;
+        ->paginate($this->perPage); 
 
-      case isset($contas['grupoconta_id']):
-        $dados = Conta::query()
-        ->where('grupoconta_id', $contas['grupoconta_id'])
+      if(isset($dados['grupoconta_id']))
+        return Conta::query()
+        ->where('grupoconta_id', $dados['grupoconta_id'])
         ->where('status', 1)
         ->paginate();
-      break;
-    }
 
-    return $dados;
+      if(empty($dados['nome']) and 
+         empty($dados['grupoconta_id']))
+           return Conta::query()
+           ->where('id', '>', 0)
+           ->where('status', 1)
+           ->paginate();
+    };
+
+    return $query($dados);
   }
 
   public function store_m(array $movto):bool

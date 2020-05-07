@@ -8,8 +8,8 @@ use DB;
 
 class Conta extends Model
 {
-  protected $fillable = ['nome', 'status', 'grupoconta_id', 
-                         'tipo'];
+  protected $fillable = ['nome', 'status', 
+                         'grupoconta_id', 'tipo'];
   protected $perPage = 8;
 
   public function grupoConta(): object
@@ -34,6 +34,7 @@ class Conta extends Model
     }catch(\Exception $e){
       return false;
     }
+    
     return true;
   }
 
@@ -43,25 +44,24 @@ class Conta extends Model
            ->paginate($this->perPage);
   }
 
-  public function search(array $conta): object
+  public function search(array $dados): object
   {
-    $query = function($conta){
-      if(isset($conta['nome']))
+    $query = function($dados){  
+      if(isset($dados['nome']))
         return $this->query()
-        ->where('nome', 'like', '%'.$conta['nome'].'%')
+        ->where('nome', 'like', '%'.$dados['nome'].'%')
         ->paginate($this->perPage);
        
-      if(isset($conta['grupoconta']))
+      if(isset($dados['grupoconta']))
         return $this->query()
-        ->where('grupoconta_id', $conta['grupoconta'])
+        ->where('grupoconta_id', $dados['grupoconta'])
         ->paginate($this->perPage);
        
-      if(empty($conta['nome']) and empty($conta['grupoconta']))
+      if(empty($dados['nome']) and empty($dados['grupoconta']))
         return $this->query()
         ->where('id', '>=', 1)->paginate();
      };
-
-     return $query($conta);
+     return $query($dados);    
   }
 
   public function updateStatus($conta_id): void
