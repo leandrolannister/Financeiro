@@ -166,5 +166,12 @@ class Movtoconta extends Model
      }
 
      return $movtos;
+  }
+
+  public function procuraMovtoConta(int $conta_id):bool
+  {
+    $query = $this->where('conta_id', $conta_id)->get()->first();
+
+    return isset($query) ? true : false;
   }  
 }

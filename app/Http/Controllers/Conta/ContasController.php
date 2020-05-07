@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Conta;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ContaRequest;
 use App\Http\Requests\ValidateId;
-use App\Models\{Grupoconta, Conta};
+use App\Models\{Grupoconta, Conta, MovtoConta};
 use Illuminate\Http\Request;
 use App\Service\Helper;
 
@@ -80,11 +80,16 @@ class ContasController extends Controller
                                  'Conta atualizada.')  
 
       : (new Helper())->mensagem('conta.show', 'error', 
-                                 'A Conta não foi atualizada!'); 
+                                 'Conta não foi atualizada!'); 
     }
 
     public function destroy(ValidateId $req):object
     {
+      if((new MovtoConta())->procuraMovtoConta($req->id))
+        
+        return (new Helper())->mensagem('conta.show', 'error', 
+        'Conta possui movimentos não pode ser excluída.');
+
       return Conta::destroy($req->id)
 
       ? (new Helper())->mensagem('conta.show', 'success', 
