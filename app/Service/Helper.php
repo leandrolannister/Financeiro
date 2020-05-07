@@ -71,14 +71,12 @@ class Helper
 
   public function recuperaData(array $dados):array
   {
-    $d = explode('-', $dados['data']);
+    $result = array_map(function($dados){
+      return ['ano' => substr($dados, 0,4),
+              'mes' => substr($dados, 6,7)];      
+    }, $dados);
 
-    $data = [
-      'ano' =>  $d[0], 
-      'mes' =>  $d[1]
-    ];
-
-    return $data;     
+    return $result['data'];       
   }  
 
 }

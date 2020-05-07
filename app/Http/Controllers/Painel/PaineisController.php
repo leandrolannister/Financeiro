@@ -88,15 +88,13 @@ class PaineisController extends Controller
 
   public function search(PainelReq $req)
   {
-     $dados = $req->except('_token');
+    $dadosReq = $req->except('_token');
+    $data = (new Helper())->recuperaData($dadosReq);
+    
+    $contasList = (new Painel())->searchRanking(
+    $data['ano'], $data['mes']);
 
-     $data = 
-       (new Helper())->recuperaData($req->except('_token'));
-
-     $contasList = (new Painel())->searchRanking(
-     $data['ano'], $data['mes']);
-
-     return view('painel.ranking', 
-      compact('contasList', 'dados'));
+    return view('painel.ranking', 
+      compact('contasList', 'dadosReq'));
   }
 }

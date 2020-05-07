@@ -67,8 +67,8 @@
          @endforelse
       </tbody>
     </table>
-    @if(isset($dados))    
-      {{$movtos->appends($dados)->links()}}
+    @if(isset($dadosReq))    
+      {{$movtos->appends($dadosReq)->links()}}
     @else
       {{$movtos->links()}}
     @endif    
