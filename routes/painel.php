@@ -17,4 +17,10 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::any('/ranking/search', 'PaineisController@search')
     ->name('painel.ranking');
+
+    Route::get('/grafico', 'PaineisController@grafico')
+    ->name('painel.grafico');
+
+    Route::post('/grafico', 'PaineisController@graficoPeriodo')
+    ->name('painel.graficoPeriodo');
 });

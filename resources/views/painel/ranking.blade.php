@@ -49,5 +49,5 @@
     @else   
       {{$contasList->links()}}
     @endif   
-  </div>
+  </div>  
 @stop 

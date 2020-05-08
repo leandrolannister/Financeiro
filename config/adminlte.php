@@ -253,7 +253,12 @@ return [
              'text' => 'Ranking',
              'icon' => 'fas fa-file',
              'url'  => 'painel/ranking',
-           ],            
+           ],  
+           [
+             'text' => 'Gráfico',
+             'icon' => 'fas fa-file',
+             'url'  => 'painel/grafico',
+           ],          
          ],
         ],
         [

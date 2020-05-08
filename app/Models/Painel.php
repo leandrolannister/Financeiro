@@ -55,24 +55,57 @@ class Painel extends Model
       ->where('g.tipo', 'Despesa')
       ->groupBy('c.nome')
       ->orderBy('valor', 'desc')
+      ->get()
       ->paginate($this->perPage);
 
       return $query;
   }
+  
+  public function searchRanking(int $ano, int $mes):object
+  {
+    $query = DB::table('movtocontas as m')
+    ->join('contas as c', 'c.id', 'm.conta_id')
+    ->join('grupoContas as g', 'g.id', 'c.grupoConta_id')
+    ->select('c.nome', DB::raw('sum(m.valor) AS valor'))
+    ->where(DB::raw('YEAR(m.data)'), $ano)
+    ->where(DB::raw('MONTH(m.data)'), $mes)
+    ->where('g.tipo', 'Despesa')
+    ->groupBy('c.nome')
+    ->orderBy('valor', 'desc')
+    ->paginate($this->perPage);
 
-   public function searchRanking(int $ano, int $mes):object
-   {
-      $query = DB::table('movtocontas as m')
-      ->join('contas as c', 'c.id', 'm.conta_id')
-      ->join('grupoContas as g', 'g.id', 'c.grupoConta_id')
-      ->select('c.nome', DB::raw('sum(m.valor) AS valor'))
-      ->where(DB::raw('YEAR(m.data)'), $ano)
-      ->where(DB::raw('MONTH(m.data)'), $mes)
-      ->where('g.tipo', 'Despesa')
-      ->groupBy('c.nome')
-      ->orderBy('valor', 'desc')
-      ->paginate($this->perPage);
+    return $query;
+  }
 
-      return $query;
+  public function graficoGeral():array
+  {
+    $query = DB::table('movtocontas as m')
+    ->join('contas as c', 'c.id', 'm.conta_id')
+    ->join('grupoContas as g', 'g.id', 'c.grupoConta_id')
+    ->select('c.nome', DB::raw('sum(m.valor) AS valor'))
+    ->where('g.tipo', 'Despesa')
+    ->groupBy('c.nome')
+    ->orderBy('valor', 'desc')
+    ->get()
+    ->toArray();
+
+    return $query;      
+  }
+
+  public function graficoPerido(int $ano, int $mes):array
+  {       
+    $query = DB::table('movtocontas as m')
+    ->join('contas as c', 'c.id', 'm.conta_id')
+    ->join('grupoContas as g', 'g.id', 'c.grupoConta_id')
+    ->select('c.nome', DB::raw('sum(m.valor) AS valor'))
+    ->where('g.tipo', 'Despesa')
+    ->where(DB::raw('YEAR(m.data)'), $ano)
+    ->where(DB::raw('MONTH(m.data)'), $mes)
+    ->groupBy('c.nome')
+    ->orderBy('valor', 'desc')
+    ->get()
+    ->toArray();
+
+    return $query;      
   }
 }

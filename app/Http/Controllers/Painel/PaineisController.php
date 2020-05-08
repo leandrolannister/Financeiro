@@ -98,4 +98,25 @@ class PaineisController extends Controller
     return view('painel.ranking', 
       compact('contasList', 'dadosReq'));
   }
+
+  public function grafico():object
+  {
+    $dados = (new Painel())->graficoGeral();
+   
+    return view('painel.grafico', compact('dados'));  
+  }
+
+  public function graficoPeriodo(Request $req)
+  {
+    if(is_null($req->data))
+      return $this->grafico();
+
+    $data = 
+      (new Helper())->recuperaData($req->except('_token'));
+
+    $dados = (new Painel())
+    ->graficoPerido($data['ano'],$data['mes']);
+
+    return view('painel.grafico', compact('dados'));    
+  }
 }

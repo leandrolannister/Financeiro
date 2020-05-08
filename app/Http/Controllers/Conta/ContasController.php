@@ -24,7 +24,7 @@ class ContasController extends Controller
       return (new Conta())->store_c($req->except('_token'))
 
       ? (new Helper())->mensagem('conta.show', 'success', 
-                                 'Conta atualizada.')  
+                                 'Conta cadastrada.')  
 
       : (new Helper())->mensagem('conta.show', 'error', 
                                  'A Conta não foi atualizada!');
