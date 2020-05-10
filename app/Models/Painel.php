@@ -55,7 +55,6 @@ class Painel extends Model
       ->where('g.tipo', 'Despesa')
       ->groupBy('c.nome')
       ->orderBy('valor', 'desc')
-      ->get()
       ->paginate($this->perPage);
 
       return $query;
