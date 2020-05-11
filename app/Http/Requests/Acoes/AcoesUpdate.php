@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Acoes;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class MovtoStore extends FormRequest
+class AcoesUpdate extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +23,12 @@ class MovtoStore extends FormRequest
      */
     public function rules()
     {
-        return [
-            'valor' => 'required|numeric',
-        ];
+      return [
+        'id' => 'required|numeric',    
+        'papel'  => 'required',
+        'compra' => 'required|numeric',
+        'quantidade' => 'required|numeric',
+        'dt_compra' => 'required'
+      ];
     }
 }

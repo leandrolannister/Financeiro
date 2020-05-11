@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Painel;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UsuarioRequest extends FormRequest
+class PainelSearch extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,7 @@ class UsuarioRequest extends FormRequest
     public function rules()
     {
       return [
-        'name'     => 'required|min:3',
-        'email'    => 'email',
-        'password' => 'max:6'
+        'data' => 'required'
       ];
     }
 }

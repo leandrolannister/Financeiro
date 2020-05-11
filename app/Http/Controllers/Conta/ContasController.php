@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Conta;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ContaRequest;
+use App\Http\Requests\Conta\ContaStore;
 use App\Http\Requests\ValidateId;
 use App\Models\{Grupoconta, Conta, MovtoConta};
 use Illuminate\Http\Request;
@@ -19,7 +19,7 @@ class ContasController extends Controller
        return view('admin.conta.index', compact('grupoContas'));
     }
 
-    public function store(ContaRequest $req):object
+    public function store(ContaStore $req):object
     {
       return (new Conta())->store_c($req->except('_token'))
 

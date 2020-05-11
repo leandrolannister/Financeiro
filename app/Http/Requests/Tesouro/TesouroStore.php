@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Tesouro;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AcoesReq extends FormRequest
+class TesouroStore extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,11 +23,11 @@ class AcoesReq extends FormRequest
      */
     public function rules()
     {
-        return [
-            'papel'  => 'required',
-            'compra' => 'required|numeric',
-            'quantidade' => 'required|numeric',
-            'dt_compra' => 'required'
-        ];
+       return [
+         'nome' => 'required',
+         'compra' => 'required|numeric',
+         'venda' => 'required|numeric',
+         'dt_compra' => 'required'
+       ];
     }
 }

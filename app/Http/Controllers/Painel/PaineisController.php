@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Painel;
 
 use App\Http\Controllers\Controller;
 use App\Models\{Conta,Movtoconta, Painel};
-use App\Http\Requests\Painel as PainelReq;
+use App\Http\Requests\Painel\PainelSearch;
 use Illuminate\Http\Request;
 use App\Service\Helper;
 
@@ -87,7 +87,7 @@ class PaineisController extends Controller
     return view('painel.ranking', compact('contasList'));    
   }
 
-  public function search(PainelReq $req):object
+  public function search(PainelSearch $req):object
   {
     $dadosReq = $req->except('_token');
     $data = (new Helper())->recuperaData($dadosReq);

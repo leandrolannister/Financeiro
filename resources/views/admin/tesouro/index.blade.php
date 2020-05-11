@@ -45,11 +45,10 @@
           <td>{{$t->tipo}}</td> 
           <td>{{$t->status}}</td>            
           <td>
-            <form action="{{route('tesouro.upgrade')}}" 
-                  method="post">
+            <form action="/admin/tesouro/upgrade/{{$t->id}}">
               {{csrf_field()}}
-              <input type="hidden" name="id" value="{{$t->id}}">
-              <button type="submit" class="btn btn-success btn-sm">
+              <button type="submit" 
+                      class="btn btn-success btn-sm">
                 <i class="fas fa-pen"></i> 
               </button>       
             </form>

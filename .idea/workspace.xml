@@ -2,7 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="363801af-587c-45f8-937c-85ebbb62d489" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Acoes/AcoesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Acoes/AcoesController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Conta/ContasController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Conta/ContasController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/GrupoContas/GrupoContasController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/GrupoContas/GrupoContasController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Tesouro/TesourosController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Tesouro/TesourosController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/AcoesReq.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/AcoesUpdate.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/ContaRequest.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/GrupoContasRequest.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/TesouroReqAll.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/TesouroRequest.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/acoes/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/acoes/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/acoes/upgrade.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/acoes/upgrade.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/tesouro/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/tesouro/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/acoes.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/acoes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/grupocontas.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/grupocontas.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/tesouro.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/tesouro.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -123,7 +138,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../glpi-9.4.4" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -169,6 +184,7 @@
       <workItem from="1588342590188" duration="120000" />
       <workItem from="1588344502494" duration="614000" />
       <workItem from="1588880776419" duration="5000" />
+      <workItem from="1589225845176" duration="8000" />
     </task>
     <servers />
   </component>
@@ -180,7 +196,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

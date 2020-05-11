@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Movto;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MovtoStore as MovtoStoreReq;
 use App\Http\Requests\ValidateId;
 use Illuminate\Http\Request;
 use App\Models\{Conta, Movtoconta};

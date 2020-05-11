@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Usuario;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UsuarioRequest;
+use App\Http\Requests\Usuario\UsuarioUpdate;
 use App\User;
 use App\Service\Helper;
 
@@ -16,7 +16,7 @@ class UsuariosController extends Controller
        return view('admin.usuario.index', compact('user'));
     }
 
-    public function update(UsuarioRequest $req):object
+    public function update(UsuarioUpdate $req):object
     {       
       return (new User())->update_u($req->all())
 

@@ -7,10 +7,12 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function(){
      
      Route::get('/grupocontas/settings', 
-     'GrupoContasController@index')->name('grupocontas.index');
+     'GrupoContasController@index')
+     ->name('grupocontas.index');
 
      Route::post('/grupocontas/store', 
-     'GrupoContasController@store')->name('grupocontas.store');
+     'GrupoContasController@store')
+     ->name('grupocontas.store');
 
      Route::get('/grupocontas/show', 'GrupoContasController@show')
      ->name('grupocontas.show'); 

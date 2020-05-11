@@ -14,10 +14,10 @@ Route::group(['middleware' => 'auth'], function(){
   Route::post('/acoes/store', 'AcoesController@store')
   ->name('acoes.store');
 
-  Route::post('/acoes/upgrade', 'AcoesController@upgrade')
+  Route::get('/acoes/upgrade/{id}', 'AcoesController@upgrade')
   ->name('acoes.upgrade');
 
-  Route::post('/acoes/update', 'AcoesController@update')
+  Route::put('/acoes/update', 'AcoesController@update')
   ->name('acoes.update');
 
   Route::post('/acoes/destroy', 'AcoesController@destroy')

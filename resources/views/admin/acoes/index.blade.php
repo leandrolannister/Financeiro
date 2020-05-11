@@ -49,10 +49,9 @@
           <td>{{$helper->formatDate($a->dt_venda)}}</td>
           
           <td>
-            <form action="{{route('acoes.upgrade')}}" method="post">
-              {{csrf_field()}}
-              <input type="hidden" name="id" value="{{$a->id}}">
-              <button type="submit" class="btn btn-success btn-sm">
+            <form action="/admin/acoes/upgrade/{{$a->id}}">
+              <button type="submit" 
+                      class="btn btn-success btn-sm">
                 <i class="fas fa-pen"></i> 
               </button>       
             </form>

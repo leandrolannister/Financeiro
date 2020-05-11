@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Conta;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ContaRequest extends FormRequest
+class ContaStore extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,9 +23,9 @@ class ContaRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'nome' => 'required|min:3',
-            'nome' => 'regex:/[\D]/'
-        ];
+      return [
+        'nome' => 'required|min:3',
+        'nome' => 'regex:/[\D]/'
+      ];
     }
 }

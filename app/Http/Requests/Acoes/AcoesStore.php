@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Acoes;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AcoesUpdate extends FormRequest
+class AcoesStore extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,12 +23,11 @@ class AcoesUpdate extends FormRequest
      */
     public function rules()
     {
-        return [
-          'id' => 'required|numeric',    
-          'papel'  => 'required',
-          'compra' => 'required|numeric',
-          'quantidade' => 'required|numeric',
-          'dt_compra' => 'required'
-        ];
+       return [
+        'papel'  => 'required',
+        'compra' => 'required|numeric',
+        'quantidade' => 'required|numeric',
+        'dt_compra' => 'required'
+       ];
     }
 }

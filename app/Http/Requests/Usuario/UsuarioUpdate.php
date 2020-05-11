@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Usuario;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TesouroReqAll extends FormRequest
+class UsuarioUpdate extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,13 +23,10 @@ class TesouroReqAll extends FormRequest
      */
     public function rules()
     {
-        return [
-            'id' => 'required|numeric',
-            'nome' => 'required',
-            'compra' => 'required|numeric',
-            'venda' => 'required|numeric',
-            'dt_compra' => 'required',
-            'tipo' => 'required'
-        ];
+       return [
+        'name'     => 'required|min:3',
+        'email'    => 'email',
+        'password' => 'max:6'
+      ];    
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\GrupoContas;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\GrupoContasRequest;
+use App\Http\Requests\GrupoContas\GrupoContasStore;
 use App\Models\{Grupoconta, Movtoconta, Conta};
 use Illuminate\Http\Request;
 use App\Service\Helper;
@@ -19,7 +19,7 @@ class GrupoContasController extends Controller
         compact('user'));
     }
 
-    public function store(GrupoContasRequest $req):object
+    public function store(GrupoContasStore $req):object
     {
       $dados = $req->all();
       $dados['user_id'] = auth()->user()->id;

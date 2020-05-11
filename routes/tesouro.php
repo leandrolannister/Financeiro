@@ -14,8 +14,8 @@ Route::group(['middleware' => 'auth'], function(){
   Route::post('/tesouro/store/', 'TesourosController@store')
   ->name('tesouro.store');
 
-  Route::post('/tesouro/upgrade', 'TesourosController@upgrade')
-  ->name('tesouro.upgrade');
+  Route::get('/tesouro/upgrade/{id}', 
+  'TesourosController@upgrade')->name('tesouro.upgrade');
 
   Route::post('/tesouro/update', 'TesourosController@update')
   ->name('tesouro.update');
