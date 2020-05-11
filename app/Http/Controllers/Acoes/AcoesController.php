@@ -27,9 +27,9 @@ class AcoesController extends Controller
       return view('admin.acoes.create');
     }
 
-    public function store(AcoesStore $req)
+    public function store(AcoesStore $acoes)
     {
-      if((new Acoes())->store_a($req->except('_token')))
+      if((new Acoes())->store_a($acoes->except('_token')))
         return redirect()->route('acoes.index')
         ->with('success', 'A Ação foi cadastrada com sucesso');
 
@@ -43,9 +43,9 @@ class AcoesController extends Controller
        return view('admin.acoes.upgrade', compact('acao'));
     }
 
-    public function update(AcoesUpdate $request)
+    public function update(AcoesUpdate $acoes)
     {
-      if((new Acoes())->update_a($req->except('_token')))
+      if((new Acoes())->update_a($acoes->except('_token')))
         return redirect()->route('acoes.index')
         ->with('success', 
                'A Ação foi atualizado com sucesso');
@@ -54,9 +54,9 @@ class AcoesController extends Controller
       ->with('error', 'A ação não foi atualizada');
     }
 
-    public function destroy(ValidateId $req)
+    public function destroy(ValidateId $acoes)
     {
-       if(Acoes::destroy($req->id))
+       if(Acoes::destroy($acoes->id))
          return redirect()->route('acoes.index')
          ->with('success', 'A Ação foi deletado com sucesso');
 

@@ -24,7 +24,8 @@ class GrupoContasController extends Controller
       $dados = $req->all();
       $dados['user_id'] = auth()->user()->id;
 
-      return (new Grupoconta())->store_g($req->except('_token'))
+      return (new Grupoconta())
+      ->store_g($req->except('_token'))
 
       ? (new Helper())->mensagem('grupocontas.index', 'success', 
                                  'Grupo cadastrado.')  

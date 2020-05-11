@@ -19,9 +19,10 @@ class ContasController extends Controller
        return view('admin.conta.index', compact('grupoContas'));
     }
 
-    public function store(ContaStore $req):object
+    public function store(ContaStore $conta):object
     {
-      return (new Conta())->store_c($req->except('_token'))
+      return (new Conta())
+      ->store_c($conta->except('_token'))
 
       ? (new Helper())->mensagem('conta.show', 'success', 
                                  'Conta cadastrada.')  
@@ -40,9 +41,9 @@ class ContasController extends Controller
               compact('contaList', 'helper', 'grupocontas'));
     }
 
-    public function search(Request $req):object
+    public function search(Request $conta):object
     {
-      $contas = $req->except('_token');
+      $contas = $conta->except('_token');
 
       $contaList = (new Conta())->search($contas);
       $helper = new Helper();
@@ -52,18 +53,18 @@ class ContasController extends Controller
         'helper','grupocontas', 'contas'));
     }
 
-    public function upgrade(ValidateId $req):object
+    public function upgrade(ValidateId $conta):object
     {
-      $conta = Conta::find($req->id);
+      $conta = Conta::find($conta->id);
       $grupocontas = Grupoconta::all();
 
       return view('admin.conta.upgrade', 
              compact('conta', 'grupocontas'));  
     }    
 
-    public function update(ValidateId $req):object
+    public function update(ValidateId $conta):object
     {
-      return  (new Conta())->update_c($req)
+      return  (new Conta())->update_c($conta)
 
       ? (new Helper())->mensagem('conta.show', 'success', 
                                  'Conta atualizada.')  
@@ -72,9 +73,9 @@ class ContasController extends Controller
                                  'A Conta não foi atualizada!');
     } 
 
-    public function turn(ValidateId $req):object
+    public function turn(ValidateId $conta):object
     {
-      return (new Conta())->updateStatus($req->id)
+      return (new Conta())->updateStatus($conta->id)
 
       ? (new Helper())->mensagem('conta.show', 'success', 
                                  'Conta atualizada.')  
@@ -83,19 +84,20 @@ class ContasController extends Controller
                                  'Conta não foi atualizada!'); 
     }
 
-    public function destroy(ValidateId $req):object
+    public function destroy(ValidateId $conta):object
     {
-      if((new MovtoConta())->procuraMovtoConta($req->id))
+      if((new MovtoConta())->procuraMovtoConta($conta->id))
         
-        return (new Helper())->mensagem('conta.show', 'error', 
+        return (new Helper())
+        ->mensagem('conta.show', 'error', 
         'Conta possui movimentos não pode ser excluída.');
 
-      return $this->delete($req);
+      return $this->delete($conta);
     }
     
     private function delete($conta):object
     {
-      return Conta::destroy($req->id)
+      return Conta::destroy($conta->id)
 
       ? (new Helper())->mensagem('conta.show', 'success', 
                                  'Conta excluída.')  
