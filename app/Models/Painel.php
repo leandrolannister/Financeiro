@@ -14,11 +14,12 @@ class Painel extends Model
                                    int $mes):float
    {
       $query = DB::select("
-        SELECT classificacao, data, valor 
-        FROM vw_calculoMetas 
+        SELECT classificacao, SUM(valor) as valor
+        FROM vw_calculoMetas
         WHERE classificacao = '$meta'
         AND YEAR(data) = $ano
-        AND MONTH(data) = $mes");
+        AND MONTH(data) = $mes
+        GROUP BY classificacao");
 
       foreach($query as $valor):
       	if(isset($valor->valor))
