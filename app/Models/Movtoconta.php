@@ -12,7 +12,7 @@ class Movtoconta extends Model
   protected $fillable = ['tipo', 'valor', 'valor_acumulado',
   'conta_id', 'user_id', 'data'];
 
-  protected $perPage = 8;
+  protected $perPage = 7;
 
   public function conta():object
   {
@@ -153,6 +153,16 @@ class Movtoconta extends Model
      ->paginate();
 
      switch($dados){
+      case isset($dados['grupo_id']):
+        $movtos = 
+        DB::table('grupoContas as g')
+        ->join('contas as c', 'c.grupoconta_id', 'g.id')
+        ->join('movtocontas as m', 'm.conta_id', 'c.id')
+        ->select('c.nome as conta_id', 'm.valor', 
+                 'm.valor_acumulado', 'm.data', 'm.id')
+        ->where('g.id', $dados['grupo_id'])
+        ->paginate($this->perPage);
+      break;
       case isset($dados['conta_id']):
         $movtos =
         $this::where('conta_id', $dados['conta_id'])

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Painel;
 
 use App\Http\Controllers\Controller;
-use App\Models\{Conta,Movtoconta, Painel};
+use App\Models\{Conta,Movtoconta, Painel, GrupoConta};
 use App\Http\Requests\Painel\PainelSearch;
 use Illuminate\Http\Request;
 use App\Service\Helper;
@@ -22,8 +22,10 @@ class PaineisController extends Controller
   {
     $movtos = (new Movtoconta())->show();
     $contas = Conta::all();
-
-    return view('painel.show', compact('movtos', 'contas'));
+    $grupos = GrupoConta::all();
+    
+    return view('painel.show', compact('movtos', 
+      'contas', 'grupos'));
   }
 
   public function meta():object

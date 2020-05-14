@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Movto;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ValidateId;
 use Illuminate\Http\Request;
-use App\Models\{Conta, Movtoconta};
+use App\Models\{Conta, Movtoconta, GrupoConta};
 use App\Service\Helper;
 
 class MovtosController extends Controller
@@ -49,11 +49,12 @@ class MovtosController extends Controller
      ->searchForLancamento($req->except('_token'));
 
      $contas = Conta::all();
+     $grupos = GrupoConta::all();
 
-     $dados = $req->except('_token');
+     $movto = $req->except('_token');
 
      return view('painel.show', compact('movtos', 'contas',
-                                        'dados'));
+                                        'movto', 'grupos'));
    }
 
    public function destroy(ValidateId $req):object

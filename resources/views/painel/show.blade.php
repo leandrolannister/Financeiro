@@ -14,7 +14,15 @@
             method="post" class="form form-inline"
             style="margin-bottom: 5px;">
         {!! csrf_field() !!}
-        
+
+        <select name="grupo_id" class="form-control" 
+                style="margin-right: 5px;">
+          <option value="">Selecione um grupo</option>      
+          @foreach($grupos as $key => $g)
+            <option value="{{$g->id}}">{{$g->nome}}</option>
+          @endforeach  
+        </select>   
+                
         <select name="conta_id" class="form-control" 
                 style="margin-right: 5px;">
           <option value="">Selecione uma conta</option>      
@@ -67,10 +75,11 @@
          @endforelse
       </tbody>
     </table>
-    @if(isset($dadosReq))    
-      {{$movtos->appends($dadosReq)->links()}}
-    @else
+    @if(isset($movto))   
+      {{$movtos->appends($movto)->links()}}
+    @else   
       {{$movtos->links()}}
-    @endif    
+    @endif
+        
   </div>
 @stop
