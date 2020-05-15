@@ -70,10 +70,9 @@ class Conta extends Model
         ->where('grupoconta_id', $dados['grupoconta'])
         ->paginate($this->perPage);
        
-      if(empty($dados['nome']) and empty($dados['grupoconta']))
-        return $this->query()
-        ->where('id', '>=', 1)->paginate();
+      return $this->query()->where('id', '>=', 1)->paginate();
      };
+
      return $query($dados);    
   }
 

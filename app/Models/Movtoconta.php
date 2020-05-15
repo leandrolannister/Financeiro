@@ -149,34 +149,33 @@ class Movtoconta extends Model
 
   public function searchForLancamento(array $dados):object
   {
-     $movtos = $this::query()->orderBy('id', 'desc')
-     ->paginate();
-
-     switch($dados){
-      case isset($dados['grupo_id']):
-        $movtos = 
-        DB::table('grupoContas as g')
+    $query = function($dados){
+      if(isset($dados['grupo_id']))
+        return 
+        $movtos = DB::table('grupoContas as g')
         ->join('contas as c', 'c.grupoconta_id', 'g.id')
         ->join('movtocontas as m', 'm.conta_id', 'c.id')
         ->select('c.nome as conta_id', 'm.valor', 
                  'm.valor_acumulado', 'm.data', 'm.id')
         ->where('g.id', $dados['grupo_id'])
-        ->paginate($this->perPage);
-      break;
-      case isset($dados['conta_id']):
-        $movtos =
-        $this::where('conta_id', $dados['conta_id'])
-        ->orderBy('valor_acumulado', 'desc')->paginate();
-        break;
+        ->paginate($this->perPage);  
 
-      case isset($dados['data']):
-        $movtos =
-        $this::where('data', $dados['data'])
-        ->orderBy('valor_acumulado', 'desc')->paginate();
-        break;
-     }
+      if(isset($dados['conta_id']))
+        return 
+        $movtos = $this::where('conta_id', $dados['conta_id'])
+        ->orderBy('valor_acumulado', 'desc')->paginate(); 
 
-     return $movtos;
+      if(isset($dados['data'])) 
+        return
+        $movtos = $this::where('data', $dados['data'])
+        ->orderBy('valor_acumulado', 'desc')->paginate();
+        
+      return 
+        $movtos = $this::query()->orderBy('id', 'desc')
+        ->paginate(); 
+     };
+
+     return $query($dados);
   }
 
   public function procuraMovtoConta(int $conta_id):bool

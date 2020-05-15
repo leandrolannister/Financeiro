@@ -53,11 +53,11 @@
         @forelse($movtos as $m)
          <tr>
           <td>{{mb_strtoupper($m->conta_id)}}</td>          
-          <td>{{number_format($m->valor, 2, '.', ',')}}</td>
+          <td class="valor">{{number_format($m->valor, 2, '.', ',')}}</td>
           <td>
             {{number_format($m->valor_acumulado, 2, '.', '.')}}
-          </td>    
-          <td>{{$m->data}}</td>      
+          </td>
+          <p></p>     
           <td>
             <form action="{{route('movto.destroy')}}" 
                   method="post">
@@ -79,7 +79,6 @@
       {{$movtos->appends($movto)->links()}}
     @else   
       {{$movtos->links()}}
-    @endif
-        
+    @endif          
   </div>
 @stop
