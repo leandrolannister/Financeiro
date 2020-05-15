@@ -195,5 +195,24 @@ class Movtoconta extends Model
     ->get()->first();
 
     return isset($query) ? true : false;
+  }
+
+  public function recuperaSaldoGrupo(array $dados, int $mesRef)
+  :?object
+  {
+    $query = function($dados, $mesRef){
+       if(isset($dados['grupo_id']))
+         return
+         $saldo = DB::table('grupoContas as g')
+         ->join('contas as c', 'c.grupoconta_id', 'g.id')
+         ->join('movtocontas as m', 'm.conta_id', 'c.id')
+         ->select(DB::raw('FORMAT(SUM(m.valor),2) as total'))
+         ->where('g.id', $dados['grupo_id'])
+         ->where(DB::raw('MONTH(m.data)'), $mesRef)
+         ->groupBy('g.id') 
+         ->get();
+    };
+
+    return $query($dados, $mesRef);
   } 
 }

@@ -8,15 +8,25 @@
 
 @section('content')
   <div class="box">
+      <div class="alert alert-info">
+        @if(isset($saldo))
+          Saldo Grupo: R$ {{$saldo[0]->total}}
+        @else
+          Saldo Grupo: R$ 0.00
+        @endif
+      </div>        
+   
     @include('includes.alertas')
     <div class="box-header">
       <form action="{{route('movto.searchForLancamento')}}"
-            method="post" class="form form-inline"
+            class="form form-inline"
+            name="frmParam"
             style="margin-bottom: 5px;">
         {!! csrf_field() !!}
 
-        <select name="grupo_id" class="form-control" 
+        <select name="grupo_id" class="form-control"         
                 style="margin-right: 5px;">
+                                
           <option value="">Selecione um grupo</option>      
           @foreach($grupos as $key => $g)
             <option value="{{$g->id}}">{{$g->nome}}</option>
@@ -24,7 +34,8 @@
         </select>   
                 
         <select name="conta_id" class="form-control" 
-                style="margin-right: 5px;">
+                style="margin-right: 5px;"
+                >
           <option value="">Selecione uma conta</option>      
           @foreach($contas as $key => $c)
             <option value="{{$c->id}}">{{$c->nome}}</option>
@@ -53,11 +64,11 @@
         @forelse($movtos as $m)
          <tr>
           <td>{{mb_strtoupper($m->conta_id)}}</td>          
-          <td class="valor">{{number_format($m->valor, 2, '.', ',')}}</td>
+          <td>{{number_format($m->valor, 2, '.', ',')}}</td>
           <td>
             {{number_format($m->valor_acumulado, 2, '.', '.')}}
           </td>
-          <p></p>     
+          <td>{{$m->data}}</td>     
           <td>
             <form action="{{route('movto.destroy')}}" 
                   method="post">
@@ -75,6 +86,16 @@
          @endforelse
       </tbody>
     </table>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
+    <script>
+      $(function(){
+         let saldo = $('#saldo').text;
+         if(parseInt(saldo))
+          console.log('oi');
+      });
+    </script>  
+
     @if(isset($movto))   
       {{$movtos->appends($movto)->links()}}
     @else   

@@ -52,9 +52,12 @@ class MovtosController extends Controller
      $grupos = GrupoConta::all();
 
      $movto = $req->except('_token');
+     $saldo = (new Movtoconta())
+     ->recuperaSaldoGrupo($req->all(), date('m'));
+     
 
      return view('painel.show', compact('movtos', 'contas',
-                                        'movto', 'grupos'));
+                                        'movto', 'grupos', 'saldo'));
    }
 
    public function destroy(ValidateId $req):object
