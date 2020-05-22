@@ -11,8 +11,8 @@ Route::group(['middleware' => 'auth'], function(){
   Route::match(['get', 'post'], '/conta/search', 
   'MovtosController@search')->name('movto.search');
 
-  Route::post('/conta/deposito', 'MovtosController@deposito')
-  ->name('movto.deposito');     
+  Route::post('/conta/deposito', 
+  'MovtosController@deposito')->name('movto.deposito');     
 
   Route::any('/conta/searchFor/lancamento', 
   'MovtosController@searchForLancamento')

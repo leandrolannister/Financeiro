@@ -14,7 +14,8 @@ class AddColumnContas extends Migration
     public function up()
     {
         Schema::table('contas', function(Blueprint $table){
-          $table->enum('tipo', ['Obrigatório', 'Facultativo'])
+          $table
+          ->enum('tipo', ['Obrigatório', 'Facultativo'])
           ->default('Facultativo')
           ->after('status');
         });

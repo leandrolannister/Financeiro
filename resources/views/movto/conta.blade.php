@@ -58,7 +58,12 @@
                <input type="number" name="valor" 
                       placeholder="0.00"
                       step="0.01" 
+                      class="mb-1" 
                       style="width: 15%"> 
+                <textarea class="form-control mb-1" 
+                            rows="2"
+                            name="comentario">
+                </textarea>                        
 
                <button type="submit" 
                        class="btn btn-primary btn-sm">

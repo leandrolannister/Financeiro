@@ -34,13 +34,15 @@ class MovtosController extends Controller
 
    public function deposito(Request $req):object
    {
-     return (new Movtoconta())->store_m($req->except('_token'))
+     return 
+     
+     (new Movtoconta())->store_m($req->except('_token'))
 
      ? (new Helper())->mensagem('movto.conta', 'success', 
-                               'Lançamento com sucesso efetuado.')  
+                                'Lançamento com sucesso efetuado.')  
 
      : (new Helper())->mensagem('movto.conta', 'error', 
-                              'Lançamento não foi efetuado!');
+                       'Lançamento não foi efetuado!');
    }   
 
    public function searchForLancamento(Request $req):object

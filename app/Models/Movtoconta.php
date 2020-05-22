@@ -9,8 +9,9 @@ use DB;
 
 class Movtoconta extends Model
 {
-  protected $fillable = ['tipo', 'valor', 'valor_acumulado',
-  'conta_id', 'user_id', 'data'];
+  protected $fillable = ['tipo', 'valor', 
+  'valor_acumulado','conta_id', 'user_id', 
+  'comentario', 'data'];
 
   protected $perPage = 7;
 

@@ -24,7 +24,8 @@
             style="margin-bottom: 5px;">
         {!! csrf_field() !!}
 
-        <select name="grupo_id" class="form-control"         
+        <select name="grupo_id" 
+                class="form-control"         
                 style="margin-right: 5px;">
                                 
           <option value="">Selecione um grupo</option>      
@@ -56,7 +57,8 @@
         <tr>
           <th>Conta</th>          
           <th>Valor</th>
-          <th>Valor Acumulado</th> 
+          <th>Valor Acumulado</th>
+          <th>Comentários</th> 
           <th>Data</th> 
         </tr>
       </thead>
@@ -68,6 +70,7 @@
           <td>
             {{number_format($m->valor_acumulado, 2, '.', '.')}}
           </td>
+          <td>{{$m->comentario}}</td>
           <td>{{$m->data}}</td>     
           <td>
             <form action="{{route('movto.destroy')}}" 
