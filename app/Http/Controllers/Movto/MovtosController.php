@@ -49,7 +49,7 @@ class MovtosController extends Controller
    {
      $movtos = (new Movtoconta())
      ->searchForLancamento($req->except('_token'));
-
+  
      $contas = Conta::all();
      $grupos = GrupoConta::all();
 
@@ -57,9 +57,9 @@ class MovtosController extends Controller
      $saldo = (new Movtoconta())
      ->recuperaSaldoGrupo($req->all(), date('m'));
      
-
-     return view('painel.show', compact('movtos', 'contas',
-                                        'movto', 'grupos', 'saldo'));
+     return view('painel.show', 
+      compact('movtos', 'contas','movto', 
+        'grupos', 'saldo'));
    }
 
    public function destroy(ValidateId $req):object

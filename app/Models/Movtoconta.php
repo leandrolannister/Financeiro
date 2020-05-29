@@ -157,7 +157,7 @@ class Movtoconta extends Model
         ->join('contas as c', 'c.grupoconta_id', 'g.id')
         ->join('movtocontas as m', 'm.conta_id', 'c.id')
         ->select('c.nome as conta_id', 'm.valor', 
-                 'm.valor_acumulado', 'm.data', 'm.id')
+                 'm.valor_acumulado', 'm.data', 'm.id', 'm.comentario')
         ->where('g.id', $dados['grupo_id'])
         ->paginate($this->perPage);  
 
@@ -206,7 +206,8 @@ class Movtoconta extends Model
          return
          $saldo = DB::table('grupoContas as g')
          ->join('contas as c', 'c.grupoconta_id', 'g.id')
-         ->join('movtocontas as m', 'm.conta_id', 'c.id')
+         ->join('movtocontas as m', 'm.conta_id', 
+          'c.id')
          ->select(DB::raw('FORMAT(SUM(m.valor),2) as total'))
          ->where('g.id', $dados['grupo_id'])
          ->where(DB::raw('MONTH(m.data)'), $mesRef)

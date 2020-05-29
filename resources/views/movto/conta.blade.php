@@ -62,9 +62,7 @@
                       style="width: 15%"> 
                 <textarea class="form-control mb-1" 
                             rows="2"
-                            name="comentario">
-                </textarea>                        
-
+                            name="comentario"></textarea>
                <button type="submit" 
                        class="btn btn-primary btn-sm">
                  Salvar 
