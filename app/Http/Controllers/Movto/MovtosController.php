@@ -66,10 +66,11 @@ class MovtosController extends Controller
    {
       return Movtoconta::destroy($req->id)
 
-      ? (new Helper())->mensagem('movto.show', 'success', 
-                               'Lançamento excluído.')  
+      ? (new Helper())
+      ->mensagem('movto.conta', 'success', 
+      'Lançamento excluído.')  
 
-      : (new Helper())->mensagem('movto.show', 'error', 
-                              'Lançamento não foi excluído!');
+      : (new Helper())->mensagem('movto.conta', 
+        'error','Lançamento não foi excluído!');
    }
 }
