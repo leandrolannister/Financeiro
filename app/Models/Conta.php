@@ -133,23 +133,30 @@ class Conta extends Model
     return $total;
   }
 
-  public function recuperaContas(string $tipo):object
-  {
-    $contas = DB::table('contas')
-    ->leftjoin('movtocontas', 'movtocontas.conta_id', 
-                              'contas.id')
-    ->select('contas.nome', 'contas.status', 'contas.tipo',
-             'movtocontas.valor', 'movtocontas.data')
-    ->where('contas.tipo', $tipo)
-    ->whereOr(DB::raw('month(movtocontas.data)'), 5)
-    ->orderby('contas.nome')
-    ->paginate();
+  public function recuperaContas(string $tipo,
+    string $mes):array {
+
+    $contas = DB::select("
+    SELECT c.nome, c.status, c.tipo, 
+      
+      (select m.valor from movtocontas AS m 
+       where m.conta_id = c.id AND 
+       MONTH(m.data) = $mes) AS valor,
+       
+      (select m.data from movtocontas AS m 
+       where m.conta_id = c.id AND 
+       MONTH(m.data) = $mes) as data
+
+    FROM contas as c
+    WHERE c.tipo = '{$tipo}'");
 
     return $contas;
   }
 
-  public function procuraGrupo(int $grupoconta_id):bool
-  {
+
+
+  public function procuraGrupo(int $grupoconta_id)
+  :bool{
     $query = $this::where('grupoconta_id', $grupoconta_id)
     ->get()->first();
 

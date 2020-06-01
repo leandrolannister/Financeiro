@@ -135,10 +135,11 @@ class ContasController extends Controller
 
     public function contasObrigatorias():object
     {
-       $contaList = (new Conta())->recuperaContas('Obrigatorio');
+       $contaList = (new Conta())->recuperaContas('Obrigatorio', Date('m'));
        $helper = (new Helper());
-       
-       return view('admin.conta.contasObrigatorias', 
-        compact('contaList', 'helper'));
+
+       return 
+       view('admin.conta.contasObrigatorias', 
+       compact('contaList', 'helper'));
     }      
 }

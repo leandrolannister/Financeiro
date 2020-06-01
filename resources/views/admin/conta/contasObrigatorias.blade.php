@@ -23,17 +23,12 @@
           <td>{{mb_strtoupper($c->nome)}}</td>
           <td>{{$c->tipo}}</td>
           <td>{{number_format($c->valor, 2, '.', ',')}}</td>
-          <td>{{$helper->formatDate($c->data)}}</td>             
+          <td>{{$helper->formatDate($c->data)}}</td>
          </tr>
          @empty
            <p>sem Registro</p>
          @endforelse
       </tbody>
     </table> 
-    @if(isset($contas))
-      {{$contaList->appends($contas)->links()}}
-    @else  
-      {{$contaList->links()}}
-    @endif  
   </div>
 @stop	
