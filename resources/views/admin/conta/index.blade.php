@@ -11,7 +11,7 @@
     <div class="container">
       @include('includes.alertas')
       <form action="{{route('conta.store')}}" method="post">
-        {!! csrf_field() !!}
+        @csrf
         
         <div class="form-group">
           <label for="name">Nome</label>

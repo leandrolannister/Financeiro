@@ -12,8 +12,7 @@
     <div class="box-header">
       <form action="{{route('conta.search')}}" method="post" 
             class="form form-inline">       
-        {!! csrf_field() !!}
-
+        @csrf
         <input type="text" name="nome" class="form-control" 
                placeholder="Descrição da Conta"
                style="margin-right: 5px;">
@@ -53,7 +52,7 @@
           <td>
             <form action="{{route('conta.upgrade')}}" 
                   method="post">
-                   {{csrf_field()}}
+                   @csrf
               <input type="hidden" name="id" value="{{$c->id}}">
               <button type="submit" 
                        class="btn btn-primary btn-sm">
@@ -64,7 +63,7 @@
           <td>
             <form action="{{route('conta.turn')}}" 
                   method="post">
-                   {{csrf_field()}}
+                   @csrf
               <input type="hidden" name="id" value="{{$c->id}}">
               <button type="submit" 
                        class="btn btn-success btn-sm">
@@ -75,7 +74,7 @@
           <td>
             <form action="{{route('conta.destroy')}}" 
                   method="post">
-                   {{csrf_field()}}
+                   @csrf
               <input type="hidden" name="id" value="{{$c->id}}">
               <button type="submit" 
                        class="btn btn-danger btn-sm">

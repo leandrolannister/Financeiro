@@ -11,8 +11,7 @@
     <div class="container">
       @include('includes.alertas')
       <form action="{{route('conta.update')}}" method="post">
-        {!! csrf_field() !!}
-
+        @csrf
         <input type="hidden" name="id" value="{{$conta->id}}">
         
         <div class="form-group">

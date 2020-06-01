@@ -21,7 +21,7 @@
   <span class="{{$valorAnual['receita'] > $valorAnual['despesa'] 
         ? 'badge badge-success' 
         : 'badge badge-danger'}}">
-    <h3>Saldo: R$
+    <h3>Saldo Acumulado: R$
     {{number_format(
         $valorAnual['receita'] - $valorAnual['despesa'],2,'.',',')}}
     </h3>    
