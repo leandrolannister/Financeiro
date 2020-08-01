@@ -36,7 +36,7 @@ class ContasController extends Controller
        $contaList = (new Conta())->listar();
        $helper = new Helper();
        $grupocontas = Grupoconta::all();
-       
+
        return view('admin.conta.show', 
               compact('contaList', 'helper', 'grupocontas'));
     }
@@ -135,9 +135,10 @@ class ContasController extends Controller
 
     public function contasObrigatorias():object
     {
-       $contaList = (new Conta())->recuperaContas('Obrigatorio', Date('m'));
+       $contaList = (new Conta())->recuperaContas('Obrigatório', Date('m'));
        $helper = (new Helper());
 
+       
        return 
        view('admin.conta.contasObrigatorias', 
        compact('contaList', 'helper'));

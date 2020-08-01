@@ -141,11 +141,11 @@ class Conta extends Model
       
       (select m.valor from movtocontas AS m 
        where m.conta_id = c.id AND 
-       MONTH(m.data) = $mes) AS valor,
+       MONTH(m.data) = $mes limit 1) AS valor,
        
       (select m.data from movtocontas AS m 
        where m.conta_id = c.id AND 
-       MONTH(m.data) = $mes) as data
+       MONTH(m.data) = $mes limit 1) AS data
 
     FROM contas as c
     WHERE c.tipo = '{$tipo}'");

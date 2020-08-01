@@ -45,18 +45,19 @@ class MovtosController extends Controller
                        'Lançamento não foi efetuado!');
    }   
 
-   public function searchForLancamento(Request $req):object
-   {
+   public function searchForLancamento(Request $req)
+   :object {
      $movtos = (new Movtoconta())
      ->searchForLancamento($req->except('_token'));
-  
+
      $contas = Conta::all();
      $grupos = GrupoConta::all();
 
      $movto = $req->except('_token');
+     
      $saldo = (new Movtoconta())
      ->recuperaSaldoGrupo($req->all(), date('m'));
-     
+
      return view('painel.show', 
       compact('movtos', 'contas','movto', 
         'grupos', 'saldo'));

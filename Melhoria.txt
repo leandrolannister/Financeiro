@@ -1,0 +1,4 @@
+1-)Escolher data de lançamento.
+2-)Ações exportar Excel.
+3-)Ações, apresentar custo x lucro total
+4-)Ações apresentar evolução de cada papel.

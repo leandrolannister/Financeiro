@@ -198,8 +198,7 @@ class Movtoconta extends Model
     return isset($query) ? true : false;
   }
 
-  public function recuperaSaldoGrupo(array $dados, int $mesRef)
-  :?object
+  public function recuperaSaldoGrupo(array $dados, int $mesRef):?object
   {
     $query = function($dados, $mesRef){
        if(isset($dados['grupo_id']))
