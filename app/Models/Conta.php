@@ -112,11 +112,18 @@ class Conta extends Model
   public function receita(int $ano, int $mes):float
   {
     $query = DB::select("
-      SELECT SUM(valor) FROM vw_ReceitasTotal
-      WHERE YEAR(data) = $ano
-      AND MONTH(data) = $mes");
+      SELECT
+        m.data AS data, SUM(m.valor) AS Valor
+      FROM ((grupocontas g
+      JOIN contas c ON (c.grupoconta_id = g.id))
+  
+      JOIN movtocontas m ON (m.conta_id = c.id))
+      WHERE g.tipo = 'Receita'
+      AND YEAR(m.data) = $ano
+      AND MONTH(m.data) = 10
+      GROUP BY m.data, g.tipo");
 
-    $total = Helper::recuperaValor($query);
+      $total = Helper::recuperaValor($query);
 
     return $total;
   }

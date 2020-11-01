@@ -29,14 +29,16 @@ class Helper
 
   public static function recuperaValor(array $dados): float
   {
+    $total = 0.00;
+
     foreach($dados as $valores):
-      foreach($valores as $valor):
-        if(isset($valor))
-          return $valor;  
+      foreach($valores as $valor): 
+        $total += $valores->Valor;
       endforeach; 
     endforeach; 
 
-    return 0; 
+    return $total;
+ 
   }
 
   public function calcularLucroAcoes($compra, $quantidade, $venda)
