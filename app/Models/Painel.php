@@ -14,8 +14,13 @@ class Painel extends Model
                                    int $mes):float
    {
       $query = DB::select("
-        SELECT classificacao, SUM(valor) as valor
-        FROM vw_calculoMetas
+        SELECT c.classificacao, SUM(c.valor) as valor
+          FROM(SELECT `g`.`classificacao` AS `classificacao`,
+                     `m`.`data` AS `data`, SUM(`m`.`valor`) AS `valor`
+                FROM ((`grupocontas` `g`
+                JOIN `contas` `c` ON (`c`.`grupoconta_id` = `g`.`id`))
+                JOIN `movtocontas` `m` ON (`m`.`conta_id` = `c`.`id`))
+                GROUP BY `g`.`classificacao`, `m`.`data`) AS c
         WHERE classificacao = '$meta'
         AND YEAR(data) = $ano
         AND MONTH(data) = $mes
@@ -31,18 +36,34 @@ class Painel extends Model
 
    public function recuperaReceita(int $ano):float
    {
-     $query = DB::select("
-      SELECT SUM(valor) FROM vw_ReceitasTotal
-      WHERE YEAR(data) = $ano");
+      $query = DB::SELECT("
+        SELECT SUM(r.Valor) AS Valor
+        FROM(
+           SELECT `m`.`data` AS `data`,
+           SUM(`m`.`valor`) AS `Valor`
+           FROM ((`grupocontas` `g`
+           JOIN `contas` `c` ON (`c`.`grupoconta_id` = `g`.`id`))
+           JOIN `movtocontas` `m` ON (`m`.`conta_id` = `c`.`id`))
+           WHERE `g`.`tipo` = 'Receita'
+           GROUP BY `m`.`data`, `g`.`tipo`) AS R
+        WHERE YEAR(R.data) = $ano;");
 
-     return Helper::recuperaValor($query);     
+      return Helper::recuperaValor($query);     
    }
 
    public function recuperaDespesa(int $ano):float
    {
-      $query = DB::select("
-        SELECT SUM(valor) FROM vw_DespesasTotal
-        WHERE YEAR(data) = $ano");
+     $query = DB::SELECT("
+        SELECT SUM(r.Valor) AS Valor
+        FROM(
+           SELECT `m`.`data` AS `data`,
+           SUM(`m`.`valor`) AS `Valor`
+           FROM ((`grupocontas` `g`
+           JOIN `contas` `c` ON (`c`.`grupoconta_id` = `g`.`id`))
+           JOIN `movtocontas` `m` ON (`m`.`conta_id` = `c`.`id`))
+           WHERE `g`.`tipo` = 'Despesa'
+           GROUP BY `m`.`data`, `g`.`tipo`) AS R
+        WHERE YEAR(R.data) = $ano;");  
 
       return Helper::recuperaValor($query);
    }

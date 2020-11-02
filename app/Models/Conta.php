@@ -93,10 +93,17 @@ class Conta extends Model
   public function movtosMonth(int $ano, int $mes):array
   {
     $movtos = DB::select("
-      SELECT grupo, tipo, total, data 
-      FROM vw_lancamentoContas 
-      WHERE year(data) = $ano
-      AND month(data) = $mes");
+      SELECT m.grupo, m.tipo, m.total, m.data
+      FROM(SELECT `g`.`nome` AS `grupo`,
+                  `g`.`tipo` AS `tipo`,
+                  SUM(`m`.`valor`) AS `total`,
+                  `m`.`data` AS `data`
+           FROM ((`grupocontas` `g`
+           JOIN `contas` `c` ON (`c`.`grupoconta_id` = `g`.`id`))
+           JOIN `movtocontas` `m` ON (`m`.`conta_id` = `c`.`id`))
+           GROUP BY `g`.`nome`,  `g`.`tipo`, `m`.`data`) AS m
+      WHERE year(m.data) = $ano
+      AND month(m.data) = $mes;");  
 
     return $movtos;
   }
@@ -120,7 +127,7 @@ class Conta extends Model
       JOIN movtocontas m ON (m.conta_id = c.id))
       WHERE g.tipo = 'Receita'
       AND YEAR(m.data) = $ano
-      AND MONTH(m.data) = 10
+      AND MONTH(m.data) = $mes
       GROUP BY m.data, g.tipo");
 
       $total = Helper::recuperaValor($query);
@@ -130,10 +137,18 @@ class Conta extends Model
 
   public function despesa(int $ano, int $mes):float
   {
-    $query = DB::select("
-      SELECT SUM(valor) FROM vw_DespesasTotal
-      WHERE YEAR(data) = $ano
-      AND MONTH(data) = $mes");
+    $query = DB::SELECT("
+        SELECT SUM(r.Valor) AS Valor
+        FROM(
+           SELECT `m`.`data` AS `data`,
+           SUM(`m`.`valor`) AS `Valor`
+           FROM ((`grupocontas` `g`
+           JOIN `contas` `c` ON (`c`.`grupoconta_id` = `g`.`id`))
+           JOIN `movtocontas` `m` ON (`m`.`conta_id` = `c`.`id`))
+           WHERE `g`.`tipo` = 'Despesa'
+           GROUP BY `m`.`data`, `g`.`tipo`) AS R
+        WHERE YEAR(R.data) = $ano
+        AND MONTH(R.data) = $mes");   
 
     $total = Helper::recuperaValor($query);
 
